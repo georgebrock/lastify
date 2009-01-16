@@ -11,9 +11,14 @@
 
 @interface LastifyController : NSObject 
 {
-
+	IBOutlet NSDrawer *drawer;
 }
 
 + (BOOL)renameSelector:(SEL)originalSelector toSelector:(SEL)newSelector onClass:(Class)class;
++ (LastifyController*)sharedInstance;
+
+- (void)loadUserInterface;
+- (IBAction)loveTrack:(id)sender;
+- (IBAction)banTrack:(id)sender;
 
 @end

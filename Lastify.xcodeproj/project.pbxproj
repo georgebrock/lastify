@@ -10,6 +10,7 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		C6D68B570F212558000CB3C6 /* LastifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B560F212558000CB3C6 /* LastifyController.m */; };
+		C6D68B5E0F212820000CB3C6 /* LastifyInterface.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6D68B550F212558000CB3C6 /* LastifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastifyController.h; sourceTree = "<group>"; };
 		C6D68B560F212558000CB3C6 /* LastifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastifyController.m; sourceTree = "<group>"; };
+		C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LastifyInterface.xib; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 			children = (
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
+				C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
+				C6D68B5E0F212820000CB3C6 /* LastifyInterface.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
