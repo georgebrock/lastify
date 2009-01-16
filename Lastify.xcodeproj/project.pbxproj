@@ -11,6 +11,7 @@
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		C6D68B570F212558000CB3C6 /* LastifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B560F212558000CB3C6 /* LastifyController.m */; };
 		C6D68B5E0F212820000CB3C6 /* LastifyInterface.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */; };
+		C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		C6D68B550F212558000CB3C6 /* LastifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastifyController.h; sourceTree = "<group>"; };
 		C6D68B560F212558000CB3C6 /* LastifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastifyController.m; sourceTree = "<group>"; };
 		C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LastifyInterface.xib; sourceTree = "<group>"; };
+		C6D68B9A0F213660000CB3C6 /* SPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPController.h; path = "class-dump-headers/SPController.h"; sourceTree = "<group>"; };
+		C6D68B9C0F2136BE000CB3C6 /* SPController+Lastify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SPController+Lastify.h"; sourceTree = "<group>"; };
+		C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SPController+Lastify.m"; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +77,9 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C6D68B9A0F213660000CB3C6 /* SPController.h */,
+				C6D68B9C0F2136BE000CB3C6 /* SPController+Lastify.h */,
+				C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */,
 				C6D68B550F212558000CB3C6 /* LastifyController.h */,
 				C6D68B560F212558000CB3C6 /* LastifyController.m */,
 			);
@@ -169,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6D68B570F212558000CB3C6 /* LastifyController.m in Sources */,
+				C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +206,10 @@
 				GCC_PREFIX_HEADER = Lastify_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
 				PRODUCT_NAME = Lastify;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = YES;
@@ -213,6 +225,10 @@
 				GCC_PREFIX_HEADER = Lastify_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
 				PRODUCT_NAME = Lastify;
 				WRAPPER_EXTENSION = bundle;
 			};

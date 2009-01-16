@@ -8,13 +8,14 @@
 
 #import <objc/objc-class.h>
 #import "LastifyController.h"
+#import "SPController.h"
+#import "SPController+Lastify.h"
 
 @implementation LastifyController
 
 + (void)load
 {
-	LastifyController *controller = [LastifyController sharedInstance];
-	[controller loadUserInterface];
+	[SPController initLastify];
 }
 
 + (LastifyController*)sharedInstance
@@ -42,12 +43,20 @@
 
 - (void)loadUserInterface
 {
+	//TODO: Replace the -(void)setupWindowAndViews; method on SPController and call this method from there
+
 	NSLog(@"***** LASTIFY: Load user interface");
-	NSLog(@"%@", [NSApp mainWindow]);
+	NSLog(@"%@", [[SPController sharedController] mainWindow]);
 
 	[NSBundle loadNibNamed:@"LastifyInterface" owner:self];
-	[drawer setParentWindow:[NSApp mainWindow]];
-	[drawer open:self];
+	[drawer setParentWindow:[[SPController sharedController] mainWindow]];
+	NSSize contentSize = NSMakeSize(382, 30);
+	[drawer setMaxContentSize:contentSize];
+	[drawer setMinContentSize:contentSize];
+	[drawer setContentSize:contentSize];
+	[drawer setLeadingOffset:10];
+	[drawer setTrailingOffset:10];
+	[drawer openOnEdge:NSMinYEdge];
 }
 
 - (IBAction)loveTrack:(id)sender
