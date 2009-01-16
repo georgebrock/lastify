@@ -12,6 +12,7 @@
 		C6D68B570F212558000CB3C6 /* LastifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B560F212558000CB3C6 /* LastifyController.m */; };
 		C6D68B5E0F212820000CB3C6 /* LastifyInterface.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */; };
 		C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */; };
+		C6D68BFA0F21418D000CB3C6 /* lastfm_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D68BF90F21418D000CB3C6 /* lastfm_black.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		C6D68B9A0F213660000CB3C6 /* SPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPController.h; path = "class-dump-headers/SPController.h"; sourceTree = "<group>"; };
 		C6D68B9C0F2136BE000CB3C6 /* SPController+Lastify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SPController+Lastify.h"; sourceTree = "<group>"; };
 		C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SPController+Lastify.m"; sourceTree = "<group>"; };
+		C6D68BF90F21418D000CB3C6 /* lastfm_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lastfm_black.png; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +69,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C6D68BF90F21418D000CB3C6 /* lastfm_black.png */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 				C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */,
@@ -165,6 +168,7 @@
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				C6D68B5E0F212820000CB3C6 /* LastifyInterface.xib in Resources */,
+				C6D68BFA0F21418D000CB3C6 /* lastfm_black.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

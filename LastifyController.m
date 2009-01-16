@@ -57,6 +57,7 @@
 	[drawer setLeadingOffset:10];
 	[drawer setTrailingOffset:10];
 	[drawer openOnEdge:NSMinYEdge];
+	[drawer setDelegate:self];
 }
 
 - (IBAction)loveTrack:(id)sender
@@ -67,6 +68,11 @@
 - (IBAction)banTrack:(id)sender
 {
 	NSLog(@"***** LASTIFY: Ban track");
+}
+
+- (BOOL)drawerShouldClose:(NSDrawer *)sender
+{
+	return FALSE;
 }
 
 @end
