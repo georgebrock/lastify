@@ -3,7 +3,7 @@
 //  Lastify
 //
 //  Created by George on 16/01/2009.
-//  Copyright 2009 George Brocklehurst. All rights reserved.
+//  Copyright 2008 George Brocklehurst. Some rights reserved (see accompanying LICENSE file for details).
 //
 
 #import <objc/objc-class.h>

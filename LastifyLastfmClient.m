@@ -3,7 +3,7 @@
 //  Lastify
 //
 //  Created by George on 16/01/2009.
-//  Copyright 2009 George Brocklehurst. All rights reserved.
+//  Copyright 2008 George Brocklehurst. Some rights reserved (see accompanying LICENSE file for details).
 //
 
 #import "LastifyLastfmClient.h"
@@ -35,16 +35,17 @@
 
 - (NSString*)getAuthToken
 {
+	// If we've already loaded or fetched the auth token, return it
 	if(authToken)
 		return authToken;
 		
-	//TODO: Try to load the auth token from the keychain (set some kind of authorised=TRUE flag)
+	//TODO: Try to load the auth token from the keychain
+	//TODO: Test it by trying to fetch a session key
 
+	// Request a new auth token from the Last.fm server
 	NSString *response = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=%@", self.APIKey]]];
-	NSLog(@"%@", response);
 	
 	NSString *newAuthToken;
-	
 	NSScanner *scanner = [NSScanner scannerWithString:response];
 	[scanner scanUpToString:@"<token>" intoString:NULL];
 	[scanner scanString:@"<token>" intoString:NULL];
@@ -57,8 +58,10 @@
 	authToken = [[NSString alloc] initWithString:newAuthToken];
 	[self didChangeValueForKey:@"authToken"];
 	
-	//TODO: Get the user to authorise the token (set some kind of authorised=FALSE flag)
-	//TODO: Give the user some way of confirming the authorisation: confirm the authorisation is complete then stash the token in the keychain
+	//TODO: Stash the auth token in the keychain
+	
+	//TODO: Get the user to authorise the token
+	//TODO: When the user has authorised the token, check it by trying to fetch a session key
 	
 	return authToken;
 }
