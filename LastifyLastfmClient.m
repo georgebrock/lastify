@@ -23,9 +23,6 @@
 		
 	self.APIKey = newAPIKey;
 	
-	// Try to load the auth token from the keychain
-	// If it's not there, get one from the server and ask the user too authenticate
-	
 	return self;
 }
 
@@ -40,6 +37,8 @@
 {
 	if(authToken)
 		return authToken;
+		
+	//TODO: Try to load the auth token from the keychain (set some kind of authorised=TRUE flag)
 
 	NSString *response = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=%@", self.APIKey]]];
 	NSLog(@"%@", response);
@@ -58,11 +57,29 @@
 	authToken = [[NSString alloc] initWithString:newAuthToken];
 	[self didChangeValueForKey:@"authToken"];
 	
+	//TODO: Get the user to authorise the token (set some kind of authorised=FALSE flag)
+	//TODO: Give the user some way of confirming the authorisation: confirm the authorisation is complete then stash the token in the keychain
+	
 	return authToken;
 }
 	
 - (void)callMethod:(NSString*)methodName withParams:(NSDictionary*)params
 {
+	NSMutableString *urlString = [NSMutableString stringWithString:@"http://ws.audioscrobbler.com/2.0/?"];
+	
+	//TODO: Add the standard parameters (methodName, APIKey)
+	
+	//TODO: If we have a session key, add it to the parameters
+	
+	//TODO: Sort the params alphabetically
+	
+	//TODO: Add the parameters to the URL string
+	
+	//TODO: Generate the signature
+	
+	//TODO: Add the signature to the URL string
+	
+	//TODO: Call the method
 }
 
 @end
