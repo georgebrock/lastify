@@ -20,17 +20,18 @@
 	BOOL sessionReady;
 }
 
-@property(readwrite, retain) NSString *APIKey;
-@property(readwrite, retain) NSString *APISecret;
-@property(readwrite, retain, getter=getAuthToken) NSString *authToken;
-@property(readwrite, retain, getter=getSessionKey) NSString *sessionKey;
+@property(readwrite, copy) NSString *APIKey;
+@property(readwrite, copy) NSString *APISecret;
+@property(readwrite, copy) NSString *authToken;
+@property(readwrite, copy) NSString *sessionKey;
 
-@property(readonly, assign) BOOL waitingForUserAuth;
-@property(readonly, assign) BOOL sessionReady;
+@property(readwrite, assign) BOOL waitingForUserAuth;
+@property(readwrite, assign) BOOL sessionReady;
 
 - (id)initWithAPIKey:(NSString*)newAPIKey APISecret:(NSString*)newSecret;
-- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post;
-- (void)completeUserAuth;
+
+- (void)authenticate;
+- (void)startNewSession;
 
 - (void)loveTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 - (void)banTrack:(NSString*)trackName byArtist:(NSString*)artistName;

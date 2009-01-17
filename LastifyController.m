@@ -59,7 +59,7 @@
 - (void)initLastfmConnection
 {
 	lastfm = [[LastifyLastfmClient alloc] initWithAPIKey:@"aa31898c9c79401a7ddaa6c8f089ccad" APISecret:@"92773b344ec2e14cd6f5780b83c06265"];
-	[lastfm getAuthToken];
+	[lastfm authenticate];
 }
 
 - (void)loadUserInterface
@@ -78,7 +78,7 @@
 
 - (IBAction)authComplete:(id)sender
 {
-	[lastfm completeUserAuth];
+	[lastfm startNewSession];
 }
 
 - (IBAction)loveTrack:(id)sender

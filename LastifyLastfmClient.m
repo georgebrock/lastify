@@ -10,6 +10,14 @@
 #import "NSString+Lastify.h"
 
 
+@interface LastifyLastfmClient (Private)
+- (NSString*)requestAuthToken;
+- (NSString*)requestSessionKey;
+- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post;
+- (NSString*)loadAuthTokenFromKeychain;
+- (void)storeAuthTokenInKeychain:(NSString*)newAuthToken;
+@end
+
 @implementation LastifyLastfmClient
 
 @synthesize
@@ -44,15 +52,67 @@
 	[super dealloc];
 }
 
-- (NSString*)getAuthToken
+- (void)authenticate
 {
-	// If we've already loaded or fetched the auth token, return it
-	if(authToken)
-		return authToken;
-		
-	//TODO: Try to load the auth token from the keychain
-	//TODO: If there's one there, check it's authorised by trying to fetch a session key
+	NSString *loadedAuthToken = [self loadAuthTokenFromKeychain];
 
+	if(loadedAuthToken)
+	{
+		self.authToken = loadedAuthToken;
+		[self startNewSession];
+		return;
+	}
+
+	// Get a new token
+	NSString *newAuthToken = [self requestAuthToken];
+	
+	if(!newAuthToken)
+	{
+		//TODO: Handle this
+		return;
+	}
+	
+	// Store the auth token
+	self.authToken = newAuthToken;
+	[self storeAuthTokenInKeychain:newAuthToken];
+	
+	// Get the user to authorise the token
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.last.fm/api/auth/?api_key=%@&token=%@", self.APIKey, newAuthToken ]]];
+	self.waitingForUserAuth = TRUE;
+	
+	// The authentication will resume with completeUserAuth when the user has logged in ...
+	return;
+}
+
+- (void)startNewSession
+{
+	NSString *newSessionKey = [self requestSessionKey];
+	
+	if(!newSessionKey)
+	{
+		//TODO: Handle this (what to do depends on the error)
+		return;
+	}
+	
+	self.sessionKey = newSessionKey;
+	
+	self.waitingForUserAuth = FALSE;
+	self.sessionReady = TRUE;
+}
+
+- (NSString*)loadAuthTokenFromKeychain
+{
+	//TODO: Try to load the auth token from the keychain
+	return nil;
+}
+
+- (void)storeAuthTokenInKeychain:(NSString*)newAuthToken
+{
+	//TODO: Store the auth token in the keychain
+}
+
+- (NSString*)requestAuthToken
+{
 	// Request a new auth token from the Last.fm server
 	NSString *response = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=%@", self.APIKey]] encoding:NSUTF8StringEncoding error:NULL];
 	
@@ -61,61 +121,22 @@
 	[scanner scanUpToString:@"<token>" intoString:NULL];
 	[scanner scanString:@"<token>" intoString:NULL];
 	[scanner scanUpToString:@"</token>" intoString:&newAuthToken];
-
-	if(!newAuthToken)
-		return nil;
-
-	[self willChangeValueForKey:@"authToken"];
-	authToken = [[NSString alloc] initWithString:newAuthToken];
-	[self didChangeValueForKey:@"authToken"];
 	
-	//TODO: Stash the auth token in the keychain
-	
-	// Get the user to authorise the token
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.last.fm/api/auth/?api_key=%@&token=%@", self.APIKey, self.authToken ]]];
-	waitingForUserAuth = TRUE;
-	
-	return authToken;
+	return [[[NSString alloc] initWithString:newAuthToken] autorelease];
 }
 
-- (void)completeUserAuth
+- (NSString*)requestSessionKey
 {
-	[self getSessionKey];
-}
-
-- (NSString*)getSessionKey
-{
-	if(sessionKey)
-		return sessionKey;
-
-	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:authToken, @"token", nil] usingPost:FALSE];
+	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:self.authToken, @"token", nil] usingPost:FALSE];
 
 	// Extract the session key
-	//TODO: Make this more robust (able to handle errors - in particular a way to go back if the auth token wasn't authorised by the user yet)
 	NSString *newSessionKey;
 	NSScanner *scanner = [NSScanner scannerWithString:response];
 	[scanner scanUpToString:@"<key>" intoString:NULL];
 	[scanner scanString:@"<key>" intoString:NULL];
 	[scanner scanUpToString:@"</key>" intoString:&newSessionKey];
-	
-	if(!newSessionKey)
-		return nil;
-	
-	// Retain a copy of the session key
-	[self willChangeValueForKey:@"sessionKey"];
-	sessionKey = [newSessionKey retain];
-	[self didChangeValueForKey:@"sessionKey"];
-	
-	// Update state
-	[self willChangeValueForKey:@"waitingForUserAuth"];
-	waitingForUserAuth = FALSE;
-	[self didChangeValueForKey:@"waitingForUserAuth"];
-	
-	[self willChangeValueForKey:@"sessionReady"];
-	sessionReady = TRUE;
-	[self didChangeValueForKey:@"sessionReady"];
 
-	return sessionKey;
+	return [[[NSString alloc] initWithString:newSessionKey] autorelease];
 }
 	
 - (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post
