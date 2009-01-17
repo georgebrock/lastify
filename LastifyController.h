@@ -7,15 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LastifyLastfmClient.h"
 
 
 @interface LastifyController : NSObject 
 {
 	IBOutlet NSDrawer *drawer;
+	LastifyLastfmClient *lastfm;
 }
 
 + (BOOL)renameSelector:(SEL)originalSelector toSelector:(SEL)newSelector onClass:(Class)class;
 + (LastifyController*)sharedInstance;
+
+- (void)initLastfmConnection;
 
 - (void)loadUserInterface;
 - (IBAction)loveTrack:(id)sender;

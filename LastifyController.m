@@ -16,6 +16,7 @@
 + (void)load
 {
 	[SPController initLastify];
+	[[LastifyController sharedInstance] initLastfmConnection];
 }
 
 + (LastifyController*)sharedInstance
@@ -40,14 +41,20 @@
 	return YES;
 }
 
+- (void)dealloc
+{
+	[lastfm release], lastfm = nil;
+	[super dealloc];
+}
+
+- (void)initLastfmConnection
+{
+	lastfm = [[LastifyLastfmClient alloc] initWithAPIKey:@"aa31898c9c79401a7ddaa6c8f089ccad"];
+	NSLog(@"******* LASTIFY: %@", lastfm.authToken);
+}
 
 - (void)loadUserInterface
 {
-	//TODO: Replace the -(void)setupWindowAndViews; method on SPController and call this method from there
-
-	NSLog(@"***** LASTIFY: Load user interface");
-	NSLog(@"%@", [[SPController sharedController] mainWindow]);
-
 	[NSBundle loadNibNamed:@"LastifyInterface" owner:self];
 	[drawer setParentWindow:[[SPController sharedController] mainWindow]];
 	NSSize contentSize = NSMakeSize(382, 30);
