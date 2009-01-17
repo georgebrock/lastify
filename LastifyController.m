@@ -52,7 +52,7 @@
 - (void)initLastfmConnection
 {
 	lastfm = [[LastifyLastfmClient alloc] initWithAPIKey:@"aa31898c9c79401a7ddaa6c8f089ccad" APISecret:@"92773b344ec2e14cd6f5780b83c06265"];
-	NSLog(@"******* LASTIFY: %@", lastfm.authToken);
+	[lastfm getAuthToken];
 }
 
 - (void)loadUserInterface
@@ -77,6 +77,7 @@
 - (IBAction)loveTrack:(id)sender
 {
 	NSLog(@"***** LASTIFY: Love track");
+	//[lastfm loveTrack:@"Bright Idea" byArtist:@"Orson"];
 }
 
 - (IBAction)banTrack:(id)sender

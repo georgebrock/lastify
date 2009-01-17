@@ -54,7 +54,7 @@
 	//TODO: If there's one there, check it's authorised by trying to fetch a session key
 
 	// Request a new auth token from the Last.fm server
-	NSString *response = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=%@", self.APIKey]]];
+	NSString *response = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=%@", self.APIKey]] encoding:NSUTF8StringEncoding error:NULL];
 	
 	NSString *newAuthToken;
 	NSScanner *scanner = [NSScanner scannerWithString:response];
@@ -88,7 +88,7 @@
 	if(sessionKey)
 		return sessionKey;
 
-	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:authToken, @"token", nil]];
+	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:authToken, @"token", nil] usingPost:FALSE];
 
 	// Extract the session key
 	//TODO: Make this more robust (able to handle errors - in particular a way to go back if the auth token wasn't authorised by the user yet)
@@ -118,9 +118,9 @@
 	return sessionKey;
 }
 	
-- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params
+- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post
 {
-	NSMutableString *urlString = [NSMutableString stringWithString:@"http://ws.audioscrobbler.com/2.0/?"];
+	NSMutableString *urlString = [NSMutableString stringWithString:@"http://ws.audioscrobbler.com/2.0/"];
 	
 	// Add the standard parameters (methodName, APIKey)
 	NSMutableDictionary *mutableParams = [params mutableCopy];
@@ -135,26 +135,95 @@
 	NSArray *sortedKeys = [[mutableParams allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 	
 	// Add the parameters to the signature base and the URL string
-	NSMutableString *signatureBase = [NSMutableString stringWithCapacity:100];
+	NSMutableString *signatureBase = [NSMutableString stringWithCapacity:50];
+	NSMutableString *queryString = [NSMutableString stringWithCapacity:50];
+	
 	NSEnumerator *paramEnumerator = [sortedKeys objectEnumerator];
-	NSString *key, *value;
+	NSString *key, *value, *escapedValue;
 	while(key = [paramEnumerator nextObject])
 	{
 		value = [mutableParams objectForKey:key];
 		[signatureBase appendFormat:@"%@%@", key, value];
-		[urlString appendFormat:@"%@=%@&", key, value];
+		
+		escapedValue = (NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)value, NULL, (CFStringRef)@"&=:/,", kCFStringEncodingUTF8);
+		[queryString appendFormat:@"%@=%@&", key, escapedValue];
+		CFRelease(escapedValue), escapedValue = nil;
 	}
 	
 	// Generate the signature
 	[signatureBase appendString:self.APISecret];
-	[urlString appendFormat:@"api_sig=%@", [signatureBase MD5Hash]];
+	[queryString appendFormat:@"api_sig=%@", [signatureBase MD5Hash]];
 	
 	// Tidy up
 	[mutableParams release], mutableParams = nil;
 	
-	// Call the method
-	NSString *response = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]];
-	return response;
+	// Build the request
+	NSURLRequest *urlReq;
+	if(post)
+	{
+		NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+		[postRequest setHTTPMethod:@"POST"];
+		[postRequest setHTTPBody:[queryString dataUsingEncoding:NSUTF8StringEncoding]];
+		urlReq = postRequest;
+	}
+	else
+	{
+		[urlString appendFormat:@"?%@", queryString];
+		urlReq = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+	}
+	
+	// Call the Last.fm API
+	NSHTTPURLResponse *downloadResponse;
+	NSError *downloadError;
+	NSData *downloadData;
+	downloadData = [NSURLConnection sendSynchronousRequest:urlReq returningResponse:&downloadResponse error:&downloadError];
+	
+	// Check for errors in the response
+	if(downloadError)
+	{
+		NSLog(@"************** LASTIFY download error: %@", downloadError);
+		return nil;
+	}
+	
+	if([downloadResponse statusCode] != 200)
+	{
+		NSLog(@"************** LASTIFY bad HTTP response: %d", [downloadResponse statusCode]);
+		return nil;
+	}
+	
+	// Extract the string from the response
+	NSString *response = [[NSString alloc] initWithData:downloadData encoding:NSUTF8StringEncoding];
+	NSLog(@"************** LASTIFY response: %@", response);
+	
+	return [response autorelease];
+}
+
+- (void)loveTrack:(NSString*)trackName byArtist:(NSString*)artistName
+{
+	if(!self.sessionKey)
+		return;
+
+	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
+		trackName, @"track",
+		artistName, @"artist",
+		nil];
+
+	NSString *response = [self callMethod:@"track.love" withParams:callParams usingPost:TRUE];
+		
+	NSLog(@"***** LASTIFY: Love track response %@", response);
+}
+
+- (void)banTrack:(NSString*)trackName byArtist:(NSString*)artistName
+{
+	if(!self.sessionKey)
+		return;
+
+	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
+		trackName, @"track",
+		artistName, @"artist",
+		nil];
+
+	[self callMethod:@"track.ban" withParams:callParams usingPost:TRUE];
 }
 
 @end

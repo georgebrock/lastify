@@ -29,7 +29,10 @@
 @property(readonly, assign) BOOL sessionReady;
 
 - (id)initWithAPIKey:(NSString*)newAPIKey APISecret:(NSString*)newSecret;
-- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params;
+- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post;
 - (void)completeUserAuth;
+
+- (void)loveTrack:(NSString*)trackName byArtist:(NSString*)artistName;
+- (void)banTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 
 @end
