@@ -12,13 +12,24 @@
 @interface LastifyLastfmClient : NSObject 
 {
 	NSString *APIKey;
+	NSString *APISecret;
 	NSString *authToken;
+	NSString *sessionKey;
+	
+	BOOL waitingForUserAuth;
+	BOOL sessionReady;
 }
 
 @property(readwrite, retain) NSString *APIKey;
+@property(readwrite, retain) NSString *APISecret;
 @property(readwrite, retain, getter=getAuthToken) NSString *authToken;
+@property(readwrite, retain, getter=getSessionKey) NSString *sessionKey;
 
-- (id)initWithAPIKey:(NSString*)newAPIKey;
-- (void)callMethod:(NSString*)methodName withParams:(NSDictionary*)params;
+@property(readonly, assign) BOOL waitingForUserAuth;
+@property(readonly, assign) BOOL sessionReady;
+
+- (id)initWithAPIKey:(NSString*)newAPIKey APISecret:(NSString*)newSecret;
+- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params;
+- (void)completeUserAuth;
 
 @end

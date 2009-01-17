@@ -16,12 +16,15 @@
 	LastifyLastfmClient *lastfm;
 }
 
+@property(readonly, retain) LastifyLastfmClient *lastfm;
+
 + (BOOL)renameSelector:(SEL)originalSelector toSelector:(SEL)newSelector onClass:(Class)class;
 + (LastifyController*)sharedInstance;
 
 - (void)initLastfmConnection;
-
 - (void)loadUserInterface;
+
+- (IBAction)authComplete:(id)sender;
 - (IBAction)loveTrack:(id)sender;
 - (IBAction)banTrack:(id)sender;
 

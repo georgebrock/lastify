@@ -14,6 +14,7 @@
 		C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */; };
 		C6D68BFA0F21418D000CB3C6 /* lastfm_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D68BF90F21418D000CB3C6 /* lastfm_black.png */; };
 		C6D68C060F214DAA000CB3C6 /* LastifyLastfmClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68C050F214DAA000CB3C6 /* LastifyLastfmClient.m */; };
+		C6D68C9A0F21EF55000CB3C6 /* NSString+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68C990F21EF55000CB3C6 /* NSString+Lastify.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		C6D68BF90F21418D000CB3C6 /* lastfm_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lastfm_black.png; sourceTree = "<group>"; };
 		C6D68C040F214DAA000CB3C6 /* LastifyLastfmClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastifyLastfmClient.h; sourceTree = "<group>"; };
 		C6D68C050F214DAA000CB3C6 /* LastifyLastfmClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastifyLastfmClient.m; sourceTree = "<group>"; };
+		C6D68C980F21EF55000CB3C6 /* NSString+Lastify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lastify.h"; sourceTree = "<group>"; };
+		C6D68C990F21EF55000CB3C6 /* NSString+Lastify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lastify.m"; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +86,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C6D68C980F21EF55000CB3C6 /* NSString+Lastify.h */,
+				C6D68C990F21EF55000CB3C6 /* NSString+Lastify.m */,
 				C6D68B9A0F213660000CB3C6 /* SPController.h */,
 				C6D68B9C0F2136BE000CB3C6 /* SPController+Lastify.h */,
 				C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */,
@@ -187,6 +192,7 @@
 				C6D68B570F212558000CB3C6 /* LastifyController.m in Sources */,
 				C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */,
 				C6D68C060F214DAA000CB3C6 /* LastifyLastfmClient.m in Sources */,
+				C6D68C9A0F21EF55000CB3C6 /* NSString+Lastify.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

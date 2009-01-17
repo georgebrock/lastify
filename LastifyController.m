@@ -13,6 +13,8 @@
 
 @implementation LastifyController
 
+@synthesize lastfm;
+
 + (void)load
 {
 	[SPController initLastify];
@@ -49,7 +51,7 @@
 
 - (void)initLastfmConnection
 {
-	lastfm = [[LastifyLastfmClient alloc] initWithAPIKey:@"aa31898c9c79401a7ddaa6c8f089ccad"];
+	lastfm = [[LastifyLastfmClient alloc] initWithAPIKey:@"aa31898c9c79401a7ddaa6c8f089ccad" APISecret:@"92773b344ec2e14cd6f5780b83c06265"];
 	NSLog(@"******* LASTIFY: %@", lastfm.authToken);
 }
 
@@ -65,6 +67,11 @@
 	[drawer setTrailingOffset:10];
 	[drawer openOnEdge:NSMinYEdge];
 	[drawer setDelegate:self];
+}
+
+- (IBAction)authComplete:(id)sender
+{
+	[lastfm completeUserAuth];
 }
 
 - (IBAction)loveTrack:(id)sender
