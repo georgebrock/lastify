@@ -10,14 +10,19 @@
 #import "LastifyController.h"
 #import "SPController.h"
 #import "SPController+Lastify.h"
+#import "SPGrowlDelegate+Lastify.h"
 
 @implementation LastifyController
 
-@synthesize lastfm;
+@synthesize 
+	lastfm,
+	currentTrack,
+	currentArtist;
 
 + (void)load
 {
 	[SPController initLastify];
+	[SPGrowlDelegate initLastify];
 	[[LastifyController sharedInstance] initLastfmConnection];
 }
 
@@ -46,6 +51,8 @@
 - (void)dealloc
 {
 	[lastfm release], lastfm = nil;
+	[currentTrack release], currentTrack = nil;
+	[currentArtist release], currentArtist = nil;
 	[super dealloc];
 }
 
@@ -76,13 +83,18 @@
 
 - (IBAction)loveTrack:(id)sender
 {
-	NSLog(@"***** LASTIFY: Love track");
-	//[lastfm loveTrack:@"Bright Idea" byArtist:@"Orson"];
+	if(!currentTrack || !currentArtist)
+		return;
+
+	[lastfm loveTrack:currentTrack byArtist:currentArtist];
 }
 
 - (IBAction)banTrack:(id)sender
 {
-	NSLog(@"***** LASTIFY: Ban track");
+	if(!currentTrack || !currentArtist)
+		return;
+	
+	[lastfm banTrack:currentTrack byArtist:currentArtist];
 }
 
 - (BOOL)drawerShouldClose:(NSDrawer *)sender

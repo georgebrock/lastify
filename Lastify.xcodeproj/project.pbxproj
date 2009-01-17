@@ -15,6 +15,7 @@
 		C6D68BFA0F21418D000CB3C6 /* lastfm_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D68BF90F21418D000CB3C6 /* lastfm_black.png */; };
 		C6D68C060F214DAA000CB3C6 /* LastifyLastfmClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68C050F214DAA000CB3C6 /* LastifyLastfmClient.m */; };
 		C6D68C9A0F21EF55000CB3C6 /* NSString+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68C990F21EF55000CB3C6 /* NSString+Lastify.m */; };
+		C6D68CF90F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68CF80F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,10 @@
 		C6D68C050F214DAA000CB3C6 /* LastifyLastfmClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastifyLastfmClient.m; sourceTree = "<group>"; };
 		C6D68C980F21EF55000CB3C6 /* NSString+Lastify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lastify.h"; sourceTree = "<group>"; };
 		C6D68C990F21EF55000CB3C6 /* NSString+Lastify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lastify.m"; sourceTree = "<group>"; };
+		C6D68CF60F21FE13000CB3C6 /* SPGrowlDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGrowlDelegate.h; path = "class-dump-headers/SPGrowlDelegate.h"; sourceTree = "<group>"; };
+		C6D68CF70F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SPGrowlDelegate+Lastify.h"; sourceTree = "<group>"; };
+		C6D68CF80F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SPGrowlDelegate+Lastify.m"; sourceTree = "<group>"; };
+		C6D68D000F21FFBB000CB3C6 /* SPTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTypes.h; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +93,10 @@
 			children = (
 				C6D68C980F21EF55000CB3C6 /* NSString+Lastify.h */,
 				C6D68C990F21EF55000CB3C6 /* NSString+Lastify.m */,
+				C6D68D000F21FFBB000CB3C6 /* SPTypes.h */,
+				C6D68CF60F21FE13000CB3C6 /* SPGrowlDelegate.h */,
+				C6D68CF70F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.h */,
+				C6D68CF80F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.m */,
 				C6D68B9A0F213660000CB3C6 /* SPController.h */,
 				C6D68B9C0F2136BE000CB3C6 /* SPController+Lastify.h */,
 				C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */,
@@ -193,6 +202,7 @@
 				C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */,
 				C6D68C060F214DAA000CB3C6 /* LastifyLastfmClient.m in Sources */,
 				C6D68C9A0F21EF55000CB3C6 /* NSString+Lastify.m in Sources */,
+				C6D68CF90F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

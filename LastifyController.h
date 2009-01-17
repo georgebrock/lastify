@@ -14,9 +14,14 @@
 {
 	IBOutlet NSDrawer *drawer;
 	LastifyLastfmClient *lastfm;
+	
+	NSString *currentTrack;
+	NSString *currentArtist;
 }
 
 @property(readonly, retain) LastifyLastfmClient *lastfm;
+@property(readwrite, retain) NSString *currentTrack;
+@property(readwrite, retain) NSString *currentArtist;
 
 + (BOOL)renameSelector:(SEL)originalSelector toSelector:(SEL)newSelector onClass:(Class)class;
 + (LastifyController*)sharedInstance;
