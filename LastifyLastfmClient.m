@@ -102,13 +102,94 @@
 
 - (NSString*)loadAuthTokenFromKeychain
 {
-	//TODO: Try to load the auth token from the keychain
-	return nil;
+	NSString *loadedAuthToken = nil;
+
+    SecKeychainSearchRef search;
+    SecKeychainItemRef item;
+    SecKeychainAttributeList list;
+    SecKeychainAttribute attributes[3];
+    OSErr result;
+
+	attributes[0].tag = kSecAccountItemAttr;
+    attributes[0].data = (void*)[self.APIKey UTF8String];
+    attributes[0].length = [self.APIKey length];
+    
+	NSString *itemDescription = @"Lastify Last.fm access token";
+    attributes[1].tag = kSecDescriptionItemAttr;
+    attributes[1].data = (void*)[itemDescription UTF8String];
+    attributes[1].length = [itemDescription length];
+	
+	NSString *itemLabel = @"Lastify Last.fm access token";
+	attributes[2].tag = kSecLabelItemAttr;
+    attributes[2].data = (void*)[itemLabel UTF8String];
+    attributes[2].length = [itemLabel length];
+
+    list.count = 3;
+    list.attr = (SecKeychainAttribute*)&attributes;
+
+    result = SecKeychainSearchCreateFromAttributes(NULL, kSecGenericPasswordItemClass, &list, &search);
+
+    if(result != noErr)
+		return nil;
+	
+    if(SecKeychainSearchCopyNext(search, &item) == noErr) 
+	{
+		UInt32 length;
+		char *password;
+		OSStatus status;
+											 
+		status = SecKeychainItemCopyContent(item, NULL, NULL, &length, (void **)&password);
+		
+		if(status == noErr) 
+		{
+			if (password != NULL) 
+			{
+				char passwordBuffer[length+1];
+				strncpy(passwordBuffer, password, length);
+				passwordBuffer[length] = '\0';
+				
+				loadedAuthToken = [NSString stringWithUTF8String:passwordBuffer];
+			}
+
+			SecKeychainItemFreeContent(NULL, password);
+		}
+
+		CFRelease(item);
+		CFRelease (search);
+	}
+	
+	return loadedAuthToken;
 }
 
 - (void)storeAuthTokenInKeychain:(NSString*)newAuthToken
 {
-	//TODO: Store the auth token in the keychain
+	// Create attributes array
+	SecKeychainAttribute attributes[3];
+	
+	// Set the account name (uses the application's consumer key)
+    attributes[0].tag = kSecAccountItemAttr;
+    attributes[0].data = (void*)[self.APIKey UTF8String];
+    attributes[0].length = [self.APIKey length];
+    
+	// Set the description
+	NSString *itemDescription = @"Lastify Last.fm access token";
+    attributes[1].tag = kSecDescriptionItemAttr;
+    attributes[1].data = (void*)[itemDescription UTF8String];
+    attributes[1].length = [itemDescription length];
+	
+	// Label the item
+	NSString *itemLabel = @"Lastify Last.fm access token";
+	attributes[2].tag = kSecLabelItemAttr;
+    attributes[2].data = (void*)[itemLabel UTF8String];
+    attributes[2].length = [itemLabel length];
+
+	// Create list from attributes array
+    SecKeychainAttributeList list;
+    list.count = 3;
+    list.attr = attributes;
+
+	// Store the password
+    SecKeychainItemCreateFromContent(kSecGenericPasswordItemClass, &list, [self.authToken length], [self.authToken UTF8String], NULL,NULL,NULL);
 }
 
 - (NSString*)requestAuthToken

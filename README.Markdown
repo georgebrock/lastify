@@ -11,8 +11,8 @@ It works enough to be useable, but it's a long way from perfect.
 * "Love track" Last.fm API call
 * "Ban track" Last.fm API call
 * Tracking of what's currently playing in Spotify
+* Store authentication tokens in keychain
 
 ### Still to do
 
-* Store authentication tokens in keychain (user currently has to authorise every time they run Spotify)
 * Better error handling when talking to Last.fm
