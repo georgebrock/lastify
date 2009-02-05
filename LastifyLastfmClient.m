@@ -195,7 +195,14 @@
 - (NSString*)requestAuthToken
 {
 	// Request a new auth token from the Last.fm server
-	NSString *response = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=%@", self.APIKey]] encoding:NSUTF8StringEncoding error:NULL];
+	NSError *downloadError = nil;
+	NSString *response = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=%@", self.APIKey]] encoding:NSUTF8StringEncoding error:&downloadError];
+	
+	if(downloadError || !response)
+	{
+		NSLog(@"************** LASTIFY failed to get Auth Token: %@", downloadError);
+		return nil;
+	}
 	
 	NSString *newAuthToken;
 	NSScanner *scanner = [NSScanner scannerWithString:response];
@@ -209,6 +216,9 @@
 - (NSString*)requestSessionKey
 {
 	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:self.authToken, @"token", nil] usingPost:FALSE];
+
+	if(!response)
+		return nil;
 
 	// Extract the session key
 	NSString *newSessionKey;
@@ -310,9 +320,7 @@
 		artistName, @"artist",
 		nil];
 
-	NSString *response = [self callMethod:@"track.love" withParams:callParams usingPost:TRUE];
-		
-	NSLog(@"***** LASTIFY: Love track response %@", response);
+	[self callMethod:@"track.love" withParams:callParams usingPost:TRUE];
 }
 
 - (void)banTrack:(NSString*)trackName byArtist:(NSString*)artistName

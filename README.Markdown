@@ -12,7 +12,8 @@ It works enough to be useable, but it's a long way from perfect.
 * "Ban track" Last.fm API call
 * Tracking of what's currently playing in Spotify
 * Store authentication tokens in keychain
+* Last.fm HTTP or API errors no longer crash Spotify
 
 ### Still to do
 
-* Better error handling when talking to Last.fm
+* Handle specific errors from Last.fm API (e.g. expired auth tokens should be automatically removed from the KeyChain and re-requested from Last.fm)
