@@ -102,6 +102,40 @@
 - (IBAction)tagTrack:(id)sender
 {
 	self.currentTags = [lastfm getTagsForTrack:currentTrack byArtist:currentArtist];
+	[tagField setObjectValue:self.currentTags];
+	[NSApp beginSheet:tagPanel modalForWindow:[[SPController sharedController] mainWindow] modalDelegate:self didEndSelector:NULL contextInfo:nil];
+}
+
+- (IBAction)taggingOK:(id)sender
+{
+	NSArray *newTags = [tagField objectValue];
+	NSMutableArray *removeTags = [self.currentTags mutableCopy];
+	NSMutableArray *addTags = [NSMutableArray arrayWithCapacity:[newTags count]];
+
+	NSEnumerator *tagEnum = [newTags objectEnumerator];
+	NSString *tag;
+	while(tag = [tagEnum nextObject])
+	{
+		[removeTags removeObject:tag];
+		
+		if(![self.currentTags containsObject:tag])
+			[addTags addObject:tag];
+	}
+	
+	//TODO: Add or remove the tags
+	NSLog(@"Tags to add: %@", addTags);
+	NSLog(@"Tags to remove: %@", removeTags);
+
+	[removeTags release], removeTags = nil;
+
+	[tagPanel orderOut:nil];
+	[NSApp endSheet:tagPanel];
+}
+
+- (IBAction)taggingCancel:(id)sender
+{
+	[tagPanel orderOut:nil];
+	[NSApp endSheet:tagPanel];
 }
 
 - (BOOL)drawerShouldClose:(NSDrawer *)sender

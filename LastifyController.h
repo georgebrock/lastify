@@ -13,6 +13,8 @@
 @interface LastifyController : NSObject 
 {
 	IBOutlet NSDrawer *drawer;
+	IBOutlet NSPanel *tagPanel;
+	IBOutlet NSTokenField *tagField;
 	LastifyLastfmClient *lastfm;
 	
 	NSString *currentTrack;
@@ -35,5 +37,8 @@
 - (IBAction)loveTrack:(id)sender;
 - (IBAction)banTrack:(id)sender;
 - (IBAction)tagTrack:(id)sender;
+
+- (IBAction)taggingOK:(id)sender;
+- (IBAction)taggingCancel:(id)sender;
 
 @end
