@@ -1,5 +1,7 @@
 # Lastify
 
+<img src="http://georgebrock.com/misc/lastify-screenshot.png" alt="Screenshot of Lastify" style="float:left;margin-right:1em;" />
+
 A SIMBL plugin that adds Last.fm Love, Ban and Tagging capabilities to Spotify.
 It works enough to be useable, but it's a long way from perfect.
 
