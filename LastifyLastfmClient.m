@@ -13,7 +13,7 @@
 @interface LastifyLastfmClient (Private)
 - (NSString*)requestAuthToken;
 - (NSString*)requestSessionKey;
-- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post;
+- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post error:(NSError**)error;
 - (NSString*)loadAuthTokenFromKeychain;
 - (void)storeAuthTokenInKeychain:(NSString*)newAuthToken;
 @end
@@ -226,7 +226,7 @@
 
 - (NSString*)requestSessionKey
 {
-	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:self.authToken, @"token", nil] usingPost:FALSE];
+	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:self.authToken, @"token", nil] usingPost:FALSE error:NULL];
 
 	if(!response)
 		return nil;
@@ -241,7 +241,7 @@
 	return [[[NSString alloc] initWithString:newSessionKey] autorelease];
 }
 	
-- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post
+- (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post error:(NSError**)error
 {
 	NSMutableString *urlString = [NSMutableString stringWithString:@"http://ws.audioscrobbler.com/2.0/"];
 	
@@ -305,6 +305,7 @@
 	if(downloadError)
 	{
 		NSLog(@"************** LASTIFY download error: %@", downloadError);
+		*error = downloadError;
 		return nil;
 	}
 	
@@ -314,9 +315,27 @@
 		
 		if(downloadData)
 		{
-			NSString *error = [[NSString alloc] initWithData:downloadData encoding:NSUTF8StringEncoding];
-			NSLog(error);
-			[error release], error = nil;
+			NSString *errorResponse = [[NSString alloc] initWithData:downloadData encoding:NSUTF8StringEncoding];
+
+			NSInteger errNo;
+			NSString *errMsg;
+			NSScanner *errScanner = [NSScanner scannerWithString:errorResponse];
+			[errScanner scanUpToString:@"<error code=\"" intoString:NULL];
+			[errScanner scanString:@"<error code=\"" intoString:NULL];
+			[errScanner scanInteger:&errNo];
+			[errScanner scanUpToString:@">" intoString:NULL];
+			[errScanner scanString:@">" intoString:NULL];
+			[errScanner scanUpToString:@"</error>" intoString:&errMsg];
+			
+			if(errMsg && errNo)
+			{
+				*error = [NSError 
+					errorWithDomain:@"com.georgebrock.lastify"
+					code:errNo
+					userInfo:[NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey]];
+			}
+			
+			[errorResponse release], errorResponse = nil;
 		}
 		
 		return nil;
@@ -339,7 +358,7 @@
 		artistName, @"artist",
 		nil];
 
-	[self callMethod:@"track.love" withParams:callParams usingPost:TRUE];
+	[self callMethod:@"track.love" withParams:callParams usingPost:TRUE error:NULL];
 }
 
 - (void)banTrack:(NSString*)trackName byArtist:(NSString*)artistName
@@ -352,7 +371,7 @@
 		artistName, @"artist",
 		nil];
 
-	[self callMethod:@"track.ban" withParams:callParams usingPost:TRUE];
+	[self callMethod:@"track.ban" withParams:callParams usingPost:TRUE error:NULL];
 }
 
 - (NSArray*)getTagsForTrack:(NSString*)trackName byArtist:(NSString*)artistName
@@ -365,7 +384,7 @@
 		artistName, @"artist",
 		nil];
 
-	NSString *response = [self callMethod:@"track.gettags" withParams:callParams usingPost:FALSE];
+	NSString *response = [self callMethod:@"track.gettags" withParams:callParams usingPost:FALSE error:NULL];
 	if(!response)
 		return nil;
 	
@@ -404,7 +423,7 @@
 		tagString, @"tags",
 		nil];
 		
-	[self callMethod:@"track.addtags" withParams:callParams usingPost:TRUE];
+	[self callMethod:@"track.addtags" withParams:callParams usingPost:TRUE error:NULL];
 }
 
 - (void)removeTags:(NSArray*)tags fromTrack:(NSString*)trackName byArtist:(NSString*)artistName
@@ -423,7 +442,7 @@
 			tag, @"tag",
 			nil];
 			
-		[self callMethod:@"track.removetag" withParams:callParams usingPost:TRUE];
+		[self callMethod:@"track.removetag" withParams:callParams usingPost:TRUE error:NULL];
 	}
 }
 
