@@ -79,7 +79,7 @@
 	[drawer setMaxContentSize:contentSize];
 	[drawer setMinContentSize:contentSize];
 	[drawer setLeadingOffset:0];
-	[drawer setTrailingOffset:0];
+	[drawer setTrailingOffset:10];
 	[drawer openOnEdge:NSMaxXEdge];
 	[drawer setDelegate:self];
 	
