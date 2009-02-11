@@ -12,10 +12,10 @@
 
 @interface LastifyLastfmClient (Private)
 - (NSString*)requestAuthToken;
-- (NSString*)requestSessionKey;
 - (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post error:(NSError**)error;
 - (NSString*)loadAuthTokenFromKeychain;
 - (void)storeAuthTokenInKeychain:(NSString*)newAuthToken;
+- (void)removeAuthTokenFromKeychain;
 @end
 
 @implementation LastifyLastfmClient
@@ -70,7 +70,6 @@
 	{
 		self.authToken = loadedAuthToken;
 		[self startNewSession];
-		//TODO: Handle issues with new session tokens
 		return;
 	}
 
@@ -97,11 +96,48 @@
 
 - (void)startNewSession
 {
-	NSString *newSessionKey = [self requestSessionKey];
+	NSError *err = nil;
+	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:self.authToken, @"token", nil] usingPost:FALSE error:&err];
+
+	if(err || !response)
+	{
+		switch([err code])
+		{
+			case 15: // This token has expired
+			case 4: // Invalid authentication token supplied
+			case 14: // This token has not been authorized
+				
+				[self removeAuthTokenFromKeychain];
+				[self authenticate];
+			
+				break;
+			
+			case 2: // Invalid service -This service does not exist
+			case 3: // Invalid Method - No method with that name in this package
+			case 5: // Invalid format - This service doesn't exist in that format
+			case 6: // Invalid parameters - Your request is missing a required parameter
+			case 7: // Invalid resource specified
+			case 9: // Invalid session key - Please re-authenticate
+			case 10: // Invalid API key - You must be granted a valid key by last.fm
+			case 11: // Service Offline - This service is temporarily offline. Try again later.
+			case 12: // Subscribers Only - This service is only available to paid last.fm subscribers
+			default:
+				break;
+		}
+		
+		return;
+	}
+
+	// Extract the session key
+	NSString *newSessionKey;
+	NSScanner *scanner = [NSScanner scannerWithString:response];
+	[scanner scanUpToString:@"<key>" intoString:NULL];
+	[scanner scanString:@"<key>" intoString:NULL];
+	[scanner scanUpToString:@"</key>" intoString:&newSessionKey];
 	
 	if(!newSessionKey)
 	{
-		//TODO: Handle this (what to do depends on the error)
+		//TODO: Handle this (must be an unexpected error if not caught sooner)
 		return;
 	}
 	
@@ -203,6 +239,46 @@
     SecKeychainItemCreateFromContent(kSecGenericPasswordItemClass, &list, [self.authToken length], [self.authToken UTF8String], NULL,NULL,NULL);
 }
 
+- (void)removeAuthTokenFromKeychain
+{
+    SecKeychainSearchRef search;
+    SecKeychainItemRef item;
+    SecKeychainAttributeList list;
+    SecKeychainAttribute attributes[3];
+    OSErr result;
+
+	attributes[0].tag = kSecAccountItemAttr;
+    attributes[0].data = (void*)[self.APIKey UTF8String];
+    attributes[0].length = [self.APIKey length];
+    
+	NSString *itemDescription = @"Lastify Last.fm access token";
+    attributes[1].tag = kSecDescriptionItemAttr;
+    attributes[1].data = (void*)[itemDescription UTF8String];
+    attributes[1].length = [itemDescription length];
+	
+	NSString *itemLabel = @"Lastify Last.fm access token";
+	attributes[2].tag = kSecLabelItemAttr;
+    attributes[2].data = (void*)[itemLabel UTF8String];
+    attributes[2].length = [itemLabel length];
+
+    list.count = 3;
+    list.attr = (SecKeychainAttribute*)&attributes;
+
+    result = SecKeychainSearchCreateFromAttributes(NULL, kSecGenericPasswordItemClass, &list, &search);
+
+    if(result != noErr)
+		return;
+	
+    if(SecKeychainSearchCopyNext(search, &item) == noErr) 
+	{
+		SecKeychainItemDelete(item);
+		CFRelease(item);
+	}
+	
+	CFRelease(search);
+
+}
+
 - (NSString*)requestAuthToken
 {
 	// Request a new auth token from the Last.fm server
@@ -222,23 +298,6 @@
 	[scanner scanUpToString:@"</token>" intoString:&newAuthToken];
 	
 	return [[[NSString alloc] initWithString:newAuthToken] autorelease];
-}
-
-- (NSString*)requestSessionKey
-{
-	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:self.authToken, @"token", nil] usingPost:FALSE error:NULL];
-
-	if(!response)
-		return nil;
-
-	// Extract the session key
-	NSString *newSessionKey;
-	NSScanner *scanner = [NSScanner scannerWithString:response];
-	[scanner scanUpToString:@"<key>" intoString:NULL];
-	[scanner scanString:@"<key>" intoString:NULL];
-	[scanner scanUpToString:@"</key>" intoString:&newSessionKey];
-
-	return [[[NSString alloc] initWithString:newSessionKey] autorelease];
 }
 	
 - (NSString*)callMethod:(NSString*)methodName withParams:(NSDictionary*)params usingPost:(BOOL)post error:(NSError**)error
