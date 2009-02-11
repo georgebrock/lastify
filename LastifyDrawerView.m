@@ -14,7 +14,7 @@
 - (void)drawRect:(NSRect)rect 
 {
 	[self lockFocus];
-	[[NSColor blackColor] set];
+	[[NSColor colorWithDeviceRed:0.235 green:0.235 blue:0.235 alpha:1.0] set];
 	[NSBezierPath fillRect:rect];
 	[self unlockFocus];
 
