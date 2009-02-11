@@ -11,6 +11,7 @@
 #import "SPController.h"
 #import "SPController+Lastify.h"
 #import "SPGrowlDelegate+Lastify.h"
+#import "NSButton+Lastify.h"
 
 @implementation LastifyController
 
@@ -67,15 +68,21 @@
 - (void)loadUserInterface
 {
 	[NSBundle loadNibNamed:@"LastifyInterface" owner:self];
+	
+	[loveButton setTextColor:[NSColor whiteColor]];
+	[banButton setTextColor:[NSColor whiteColor]];
+	[tagButton setTextColor:[NSColor whiteColor]];
+	
 	[drawer setParentWindow:[[SPController sharedController] mainWindow]];
-	NSSize contentSize = NSMakeSize(382, 30);
+	NSSize contentSize = NSMakeSize(71, 200);
 	[drawer setMaxContentSize:contentSize];
 	[drawer setMinContentSize:contentSize];
-	[drawer setContentSize:contentSize];
-	[drawer setLeadingOffset:10];
-	[drawer setTrailingOffset:10];
-	[drawer openOnEdge:NSMinYEdge];
+	[drawer setLeadingOffset:0];
+	[drawer setTrailingOffset:0];
+	[drawer openOnEdge:NSMaxXEdge];
 	[drawer setDelegate:self];
+	
+	[drawer setContentSize:contentSize];
 }
 
 - (IBAction)authComplete:(id)sender

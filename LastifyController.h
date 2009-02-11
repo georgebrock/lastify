@@ -17,6 +17,10 @@
 	IBOutlet NSTokenField *tagField;
 	LastifyLastfmClient *lastfm;
 	
+	IBOutlet NSButton *loveButton;
+	IBOutlet NSButton *banButton;
+	IBOutlet NSButton *tagButton;
+	
 	NSString *currentTrack;
 	NSString *currentArtist;
 	NSArray *currentTags;
