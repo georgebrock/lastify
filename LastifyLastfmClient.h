@@ -31,6 +31,8 @@
 - (id)initWithAPIKey:(NSString*)newAPIKey APISecret:(NSString*)newSecret;
 
 - (void)authenticate;
+- (void)authenticateQuietly;
+
 - (void)startNewSession;
 
 - (void)loveTrack:(NSString*)trackName byArtist:(NSString*)artistName;

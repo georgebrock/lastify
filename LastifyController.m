@@ -62,7 +62,7 @@
 - (void)initLastfmConnection
 {
 	lastfm = [[LastifyLastfmClient alloc] initWithAPIKey:@"aa31898c9c79401a7ddaa6c8f089ccad" APISecret:@"92773b344ec2e14cd6f5780b83c06265"];
-	[lastfm authenticate];
+	[lastfm authenticateQuietly];
 }
 
 - (void)loadUserInterface
@@ -72,6 +72,7 @@
 	[loveButton setTextColor:[NSColor whiteColor]];
 	[banButton setTextColor:[NSColor whiteColor]];
 	[tagButton setTextColor:[NSColor whiteColor]];
+	[loginButton setTextColor:[NSColor whiteColor]];
 	
 	[drawer setParentWindow:[[SPController sharedController] mainWindow]];
 	NSSize contentSize = NSMakeSize(71, 200);
@@ -85,9 +86,41 @@
 	[drawer setContentSize:contentSize];
 }
 
-- (IBAction)authComplete:(id)sender
+- (IBAction)auth:(id)sender
 {
-	[lastfm startNewSession];
+	if(lastfm.sessionKey)
+		return;
+	
+	[lastfm authenticateQuietly];
+	if(lastfm.sessionKey)
+		return;
+		
+	NSAlert *authAlert = [NSAlert 
+		alertWithMessageText:@"You must authorise Lastify to access your Last.fm profile information"
+		defaultButton:@"Continue"
+		alternateButton:@"Cancel"
+		otherButton:nil
+		informativeTextWithFormat:@"If you click OK the Last.fm website will open so you can authorise Lastify"];
+	
+	if([authAlert runModal] == NSAlertAlternateReturn)
+		return;
+
+	[lastfm authenticate];
+	
+	if(lastfm.waitingForUserAuth)
+	{
+		NSAlert *authCompleteAlert = [NSAlert 
+			alertWithMessageText:@"Authorisation is complete"
+			defaultButton:@"Continue"
+			alternateButton:@"Cancel"
+			otherButton:nil
+			informativeTextWithFormat:@"I've authorised Lastify to access my Last.fm profile"];
+			
+		if([authCompleteAlert runModal] == NSAlertAlternateReturn)
+			return;
+			
+		[lastfm startNewSession];
+	}
 }
 
 - (IBAction)loveTrack:(id)sender

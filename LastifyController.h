@@ -20,6 +20,7 @@
 	IBOutlet NSButton *loveButton;
 	IBOutlet NSButton *banButton;
 	IBOutlet NSButton *tagButton;
+	IBOutlet NSButton *loginButton;
 	
 	NSString *currentTrack;
 	NSString *currentArtist;
@@ -37,12 +38,13 @@
 - (void)initLastfmConnection;
 - (void)loadUserInterface;
 
-- (IBAction)authComplete:(id)sender;
 - (IBAction)loveTrack:(id)sender;
 - (IBAction)banTrack:(id)sender;
 - (IBAction)tagTrack:(id)sender;
 
 - (IBAction)taggingOK:(id)sender;
 - (IBAction)taggingCancel:(id)sender;
+
+- (IBAction)auth:(id)sender;
 
 @end

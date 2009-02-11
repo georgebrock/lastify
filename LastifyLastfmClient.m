@@ -52,6 +52,16 @@
 	[super dealloc];
 }
 
+- (void)authenticateQuietly
+{
+	NSString *loadedAuthToken = [self loadAuthTokenFromKeychain];
+	if(!loadedAuthToken)
+		return;
+		
+	self.authToken = loadedAuthToken;
+	[self startNewSession];
+}
+
 - (void)authenticate
 {
 	NSString *loadedAuthToken = [self loadAuthTokenFromKeychain];
@@ -60,6 +70,7 @@
 	{
 		self.authToken = loadedAuthToken;
 		[self startNewSession];
+		//TODO: Handle issues with new session tokens
 		return;
 	}
 

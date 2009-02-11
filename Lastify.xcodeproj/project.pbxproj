@@ -14,6 +14,7 @@
 		C6BE8FF30F431AB5004BBEB7 /* icon_love.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BE8FF00F431AB5004BBEB7 /* icon_love.png */; };
 		C6BE900D0F4321AE004BBEB7 /* LastifyDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BE900C0F4321AE004BBEB7 /* LastifyDrawerView.m */; };
 		C6BE903B0F4327E4004BBEB7 /* NSButton+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BE903A0F4327E4004BBEB7 /* NSButton+Lastify.m */; };
+		C6BE906B0F432D3A004BBEB7 /* icon_key.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BE906A0F432D3A004BBEB7 /* icon_key.png */; };
 		C6D68B570F212558000CB3C6 /* LastifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B560F212558000CB3C6 /* LastifyController.m */; };
 		C6D68B5E0F212820000CB3C6 /* LastifyInterface.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */; };
 		C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */; };
@@ -38,6 +39,7 @@
 		C6BE900C0F4321AE004BBEB7 /* LastifyDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastifyDrawerView.m; sourceTree = "<group>"; };
 		C6BE90390F4327E4004BBEB7 /* NSButton+Lastify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+Lastify.h"; sourceTree = "<group>"; };
 		C6BE903A0F4327E4004BBEB7 /* NSButton+Lastify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+Lastify.m"; sourceTree = "<group>"; };
+		C6BE906A0F432D3A004BBEB7 /* icon_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_key.png; sourceTree = "<group>"; };
 		C6D68B550F212558000CB3C6 /* LastifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastifyController.h; sourceTree = "<group>"; };
 		C6D68B560F212558000CB3C6 /* LastifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastifyController.m; sourceTree = "<group>"; };
 		C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LastifyInterface.xib; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				C6BE8FEE0F431AB5004BBEB7 /* icon_tag.png */,
 				C6BE8FEF0F431AB5004BBEB7 /* icon_ban.png */,
 				C6BE8FF00F431AB5004BBEB7 /* icon_love.png */,
+				C6BE906A0F432D3A004BBEB7 /* icon_key.png */,
 				C6D68BF90F21418D000CB3C6 /* lastfm_black.png */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
@@ -210,6 +213,7 @@
 				C6BE8FF10F431AB5004BBEB7 /* icon_tag.png in Resources */,
 				C6BE8FF20F431AB5004BBEB7 /* icon_ban.png in Resources */,
 				C6BE8FF30F431AB5004BBEB7 /* icon_love.png in Resources */,
+				C6BE906B0F432D3A004BBEB7 /* icon_key.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
