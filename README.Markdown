@@ -1,6 +1,6 @@
 # Lastify
 
-A SIMBL plugin that adds Last.fm Love and Ban capabilities to Spotify.
+A SIMBL plugin that adds Last.fm Love, Ban and Tagging capabilities to Spotify.
 It works enough to be useable, but it's a long way from perfect.
 
 ### Done
@@ -13,6 +13,7 @@ It works enough to be useable, but it's a long way from perfect.
 * Tracking of what's currently playing in Spotify
 * Store authentication tokens in keychain
 * Last.fm HTTP or API errors no longer crash Spotify
+* Tagging interface
 
 ### Still to do
 
