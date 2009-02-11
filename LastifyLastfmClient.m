@@ -300,6 +300,14 @@
 	if([downloadResponse statusCode] != 200)
 	{
 		NSLog(@"************** LASTIFY bad HTTP response: %d", [downloadResponse statusCode]);
+		
+		if(downloadData)
+		{
+			NSString *error = [[NSString alloc] initWithData:downloadData encoding:NSUTF8StringEncoding];
+			NSLog(error);
+			[error release], error = nil;
+		}
+		
 		return nil;
 	}
 	
@@ -362,6 +370,43 @@
 	}
 	
 	return (NSArray*)tags;
+}
+
+- (void)addTags:(NSArray*)tags toTrack:(NSString*)trackName byArtist:(NSString*)artistName
+{
+	if(!self.sessionKey)
+		return;
+
+	//TODO: Break down into multiple calls if there are more than ten tags
+	NSString *tagString = [tags componentsJoinedByString:@","];
+
+	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
+		trackName, @"track",
+		artistName, @"artist",
+		tagString, @"tags",
+		nil];
+		
+	[self callMethod:@"track.addtags" withParams:callParams usingPost:TRUE];
+}
+
+- (void)removeTags:(NSArray*)tags fromTrack:(NSString*)trackName byArtist:(NSString*)artistName
+{
+	if(!self.sessionKey)
+		return;
+	
+	NSString *tag;
+	NSDictionary *callParams;
+	NSEnumerator *tagEnum = [tags objectEnumerator];
+	while(tag = [tagEnum nextObject])
+	{
+		callParams = [NSDictionary dictionaryWithObjectsAndKeys:
+			trackName, @"track",
+			artistName, @"artist",
+			tag, @"tag",
+			nil];
+			
+		[self callMethod:@"track.removetag" withParams:callParams usingPost:TRUE];
+	}
 }
 
 @end

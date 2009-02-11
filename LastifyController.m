@@ -121,10 +121,18 @@
 		if(![self.currentTags containsObject:tag])
 			[addTags addObject:tag];
 	}
-	
-	//TODO: Add or remove the tags
-	NSLog(@"Tags to add: %@", addTags);
-	NSLog(@"Tags to remove: %@", removeTags);
+
+	if([addTags count] > 0)
+	{
+		NSLog(@"********** LASTIFY Adding tags: %@", addTags);
+		[lastfm addTags:addTags toTrack:currentTrack byArtist:currentArtist];
+	}
+
+	if([removeTags count] > 0)
+	{
+		NSLog(@"********** LASTIFY Removing tags: %@", removeTags);
+		[lastfm removeTags:removeTags fromTrack:currentTrack byArtist:currentArtist];
+	}
 
 	[removeTags release], removeTags = nil;
 
