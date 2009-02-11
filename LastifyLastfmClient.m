@@ -377,7 +377,14 @@
 	if(!self.sessionKey)
 		return;
 
-	//TODO: Break down into multiple calls if there are more than ten tags
+	if([tags count] > 10)
+	{
+		NSArray *remainder = [tags subarrayWithRange:NSMakeRange(10, [tags count]-10)];
+		[self addTags:remainder toTrack:trackName byArtist:artistName];
+		
+		tags = [tags subarrayWithRange:NSMakeRange(0, 10)];
+	}
+
 	NSString *tagString = [tags componentsJoinedByString:@","];
 
 	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
