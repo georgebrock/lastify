@@ -17,11 +17,13 @@
 	
 	NSString *currentTrack;
 	NSString *currentArtist;
+	NSArray *currentTags;
 }
 
 @property(readonly, retain) LastifyLastfmClient *lastfm;
 @property(readwrite, retain) NSString *currentTrack;
 @property(readwrite, retain) NSString *currentArtist;
+@property(readwrite, retain) NSArray *currentTags;
 
 + (BOOL)renameSelector:(SEL)originalSelector toSelector:(SEL)newSelector onClass:(Class)class;
 + (LastifyController*)sharedInstance;
@@ -32,5 +34,6 @@
 - (IBAction)authComplete:(id)sender;
 - (IBAction)loveTrack:(id)sender;
 - (IBAction)banTrack:(id)sender;
+- (IBAction)tagTrack:(id)sender;
 
 @end

@@ -336,6 +336,34 @@
 	[self callMethod:@"track.ban" withParams:callParams usingPost:TRUE];
 }
 
+- (NSArray*)getTagsForTrack:(NSString*)trackName byArtist:(NSString*)artistName
+{
+	if(!self.sessionKey)
+		return nil;
+
+	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
+		trackName, @"track",
+		artistName, @"artist",
+		nil];
+
+	NSString *response = [self callMethod:@"track.gettags" withParams:callParams usingPost:FALSE];
+	if(!response)
+		return nil;
+	
+	NSMutableArray *tags = [NSMutableArray arrayWithCapacity:1];
+	
+	NSString *newTag;
+	NSScanner *scanner = [NSScanner scannerWithString:response];
+	while([scanner scanUpToString:@"<name>" intoString:NULL])
+	{
+		[scanner scanString:@"<name>" intoString:NULL];
+		if([scanner scanUpToString:@"</name>" intoString:&newTag])
+			[tags addObject:newTag];
+	}
+	
+	return (NSArray*)tags;
+}
+
 @end
 
 

@@ -17,7 +17,8 @@
 @synthesize 
 	lastfm,
 	currentTrack,
-	currentArtist;
+	currentArtist,
+	currentTags;
 
 + (void)load
 {
@@ -53,6 +54,7 @@
 	[lastfm release], lastfm = nil;
 	[currentTrack release], currentTrack = nil;
 	[currentArtist release], currentArtist = nil;
+	[currentTags release], currentTags = nil;
 	[super dealloc];
 }
 
@@ -95,6 +97,11 @@
 		return;
 	
 	[lastfm banTrack:currentTrack byArtist:currentArtist];
+}
+
+- (IBAction)tagTrack:(id)sender
+{
+	self.currentTags = [lastfm getTagsForTrack:currentTrack byArtist:currentArtist];
 }
 
 - (BOOL)drawerShouldClose:(NSDrawer *)sender

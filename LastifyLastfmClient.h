@@ -35,5 +35,6 @@
 
 - (void)loveTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 - (void)banTrack:(NSString*)trackName byArtist:(NSString*)artistName;
+- (NSArray*)getTagsForTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 
 @end
