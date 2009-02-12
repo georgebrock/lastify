@@ -78,7 +78,7 @@
 	NSSize contentSize = NSMakeSize(71, 200);
 	[drawer setMaxContentSize:contentSize];
 	[drawer setMinContentSize:contentSize];
-	[drawer setLeadingOffset:0];
+	[drawer setLeadingOffset:29];
 	[drawer setTrailingOffset:10];
 	[drawer openOnEdge:NSMaxXEdge];
 	[drawer setDelegate:self];
