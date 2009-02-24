@@ -3,19 +3,20 @@
 <img src="http://georgebrock.com/misc/lastify-screenshot.png" alt="Screenshot of Lastify" style="float:left;margin-right:1em;" />
 
 A SIMBL plugin that adds Last.fm Love, Ban and Tagging capabilities to Spotify.
-It works enough to be useable, but it's a long way from perfect.
 
-### Done
+### Installation instructions
 
-* Working SIMBL plugin
-* Simple GUI
-* Authentication with Last.fm
-* "Love track" Last.fm API call
-* "Ban track" Last.fm API call
-* Tracking of what's currently playing in Spotify
-* Store authentication tokens in keychain
-* Last.fm HTTP or API errors no longer crash Spotify
-* Tagging interface
+1. Download and install [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php "Smart Input Manager Bundle Loader")
+2. Download Lastify
+3. Put the Lastify.bundle file (found in the build/Release directory of this project) into your /Users/your-username-here/Library/Application Support/SIMBL/Plugins directory
+
+### Features
+
+* Add edit and remove Last.fm tags for the track you're listening to in Spotify
+* Love the track you're listening to in Spotify on Last.fm
+* Ban the track you're listening to in Spotify on Last.fm
+* User interface integrated into Spotify
+* Securely stores authentication details in the KeyChain (so you don't have to log into Last.fm every time)
 
 ### Still to do
 
