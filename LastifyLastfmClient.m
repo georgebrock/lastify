@@ -54,12 +54,16 @@
 
 - (void)authenticateQuietly
 {
+	NSLog(@"LASTIFY Authenticate quiety");
+	
 	NSString *loadedAuthToken = [self loadAuthTokenFromKeychain];
 	if(!loadedAuthToken)
 		return;
 		
+	NSLog(@"LASTIFY Loaded an auth token: %@", loadedAuthToken);
+		
 	self.authToken = loadedAuthToken;
-	[self startNewSession];
+	[self startNewSession:TRUE];
 }
 
 - (void)authenticate
@@ -69,7 +73,7 @@
 	if(loadedAuthToken)
 	{
 		self.authToken = loadedAuthToken;
-		[self startNewSession];
+		[self startNewSession:FALSE];
 		return;
 	}
 
@@ -86,6 +90,8 @@
 	self.authToken = newAuthToken;
 	[self storeAuthTokenInKeychain:newAuthToken];
 	
+	NSLog(@"LASTIFY About to send the user to the Last.fm site to log in");
+	
 	// Get the user to authorise the token
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.last.fm/api/auth/?api_key=%@&token=%@", self.APIKey, newAuthToken ]]];
 	self.waitingForUserAuth = TRUE;
@@ -94,7 +100,7 @@
 	return;
 }
 
-- (void)startNewSession
+- (void)startNewSession:(BOOL)quietly
 {
 	NSError *err = nil;
 	NSString *response = [self callMethod:@"auth.getSession" withParams:[NSDictionary dictionaryWithObjectsAndKeys:self.authToken, @"token", nil] usingPost:FALSE error:&err];
@@ -108,7 +114,8 @@
 			case 14: // This token has not been authorized
 				
 				[self removeAuthTokenFromKeychain];
-				[self authenticate];
+				if(!quietly)
+					[self authenticate];
 			
 				break;
 			
@@ -287,7 +294,7 @@
 	
 	if(downloadError || !response)
 	{
-		NSLog(@"************** LASTIFY failed to get Auth Token: %@", downloadError);
+		NSLog(@"LASTIFY failed to get Auth Token: %@", downloadError);
 		return nil;
 	}
 	
@@ -363,14 +370,14 @@
 	// Check for errors in the response
 	if(downloadError)
 	{
-		NSLog(@"************** LASTIFY download error: %@", downloadError);
+		NSLog(@"LASTIFY download error: %@", downloadError);
 		*error = downloadError;
 		return nil;
 	}
 	
 	if([downloadResponse statusCode] != 200)
 	{
-		NSLog(@"************** LASTIFY bad HTTP response: %d", [downloadResponse statusCode]);
+		NSLog(@"LASTIFY bad HTTP response: %d", [downloadResponse statusCode]);
 		
 		if(downloadData)
 		{
@@ -402,7 +409,7 @@
 	
 	// Extract the string from the response
 	NSString *response = [[NSString alloc] initWithData:downloadData encoding:NSUTF8StringEncoding];
-	NSLog(@"************** LASTIFY response: %@", response);
+	NSLog(@"LASTIFY response: %@", response);
 	
 	return [response autorelease];
 }

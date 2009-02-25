@@ -119,7 +119,7 @@
 		if([authCompleteAlert runModal] == NSAlertAlternateReturn)
 			return;
 			
-		[lastfm startNewSession];
+		[lastfm startNewSession:FALSE];
 	}
 }
 
