@@ -37,11 +37,7 @@
 		int removeLength = [songTitle length] + 3;
 		NSString *artist = [dockTitle stringByReplacingCharactersInRange:NSMakeRange([dockTitle length]-removeLength, removeLength) withString:@""];
 		
-		NSLog(@"************** LASTIFY track started: \"%@\" by %@", songTitle, artist);
-		
-		LastifyController *lastify = [LastifyController sharedInstance];
-		lastify.currentTrack = songTitle;
-		lastify.currentArtist = artist;
+		[[LastifyController sharedInstance] startNewTrack:songTitle byArtist:artist];
 		
 		[songTitle release], songTitle = nil;
 	}

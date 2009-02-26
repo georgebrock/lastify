@@ -40,6 +40,11 @@
 - (void)initLastfmConnection;
 - (void)loadUserInterface;
 
+- (void)startNewTrack:(NSString*)trackName byArtist:(NSString*)artistName;
+
+- (void)displayWorkingIcon;
+- (void)displayResultIcon:(BOOL)result;
+
 - (IBAction)loveTrack:(id)sender;
 - (IBAction)banTrack:(id)sender;
 - (IBAction)tagTrack:(id)sender;

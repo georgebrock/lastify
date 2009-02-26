@@ -88,6 +88,29 @@
 	[drawer setContentSize:contentSize];
 }
 
+- (void)displayWorkingIcon
+{
+	NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"icon_loading" ofType:@"gif"];
+	NSImage *img = [[NSImage alloc] initWithContentsOfFile:path];
+	[statusImage setImage:img];
+	[img release], img = nil;
+}
+
+- (void)displayResultIcon:(BOOL)result
+{
+	NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:(result ? @"icon_tick" : @"icon_error") ofType:@"png"];
+	NSImage *img = [[NSImage alloc] initWithContentsOfFile:path];
+	[statusImage setImage:img];
+	[img release], img = nil;
+	
+	[NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearResultIcon:) userInfo:nil repeats:FALSE];
+}
+
+- (void)clearResultIcon:(NSTimer*)timer
+{
+	[statusImage setImage:nil];
+}
+
 - (IBAction)auth:(id)sender
 {
 	if(lastfm.sessionKey)
@@ -130,9 +153,9 @@
 	if(!currentTrack || !currentArtist)
 		return;
 
-	[statusImage setImage:[NSImage imageNamed:@"loading"]];
-	[lastfm loveTrack:currentTrack byArtist:currentArtist];
-	[statusImage setImage:nil];
+	[self displayWorkingIcon];
+	BOOL result = [lastfm loveTrack:currentTrack byArtist:currentArtist];
+	[self displayResultIcon:result];
 }
 
 - (IBAction)banTrack:(id)sender
@@ -140,7 +163,9 @@
 	if(!currentTrack || !currentArtist)
 		return;
 	
-	[lastfm banTrack:currentTrack byArtist:currentArtist];
+	[self displayWorkingIcon];
+	BOOL result = [lastfm banTrack:currentTrack byArtist:currentArtist];
+	[self displayResultIcon:result];
 }
 
 - (IBAction)tagTrack:(id)sender
@@ -152,6 +177,8 @@
 
 - (IBAction)taggingOK:(id)sender
 {	
+	[self displayWorkingIcon];
+	
 	NSArray *newTags = [tagField objectValue];
 	NSMutableArray *removeTags = [self.currentTags mutableCopy];
 	NSMutableArray *addTags = [NSMutableArray arrayWithCapacity:[newTags count]];
@@ -166,22 +193,33 @@
 			[addTags addObject:tag];
 	}
 
+	BOOL result = TRUE;
+	
 	if([addTags count] > 0)
 	{
-		NSLog(@"********** LASTIFY Adding tags: %@", addTags);
-		[lastfm addTags:addTags toTrack:currentTrack byArtist:currentArtist];
+		NSLog(@"LASTIFY Adding tags: %@", addTags);
+		result = [lastfm addTags:addTags toTrack:currentTrack byArtist:currentArtist] && result;
 	}
 
 	if([removeTags count] > 0)
 	{
-		NSLog(@"********** LASTIFY Removing tags: %@", removeTags);
-		[lastfm removeTags:removeTags fromTrack:currentTrack byArtist:currentArtist];
+		NSLog(@"LASTIFY Removing tags: %@", removeTags);
+		result = [lastfm removeTags:removeTags fromTrack:currentTrack byArtist:currentArtist] && result;
 	}
 
 	[removeTags release], removeTags = nil;
 
 	[tagPanel orderOut:nil];
 	[NSApp endSheet:tagPanel];
+	
+	[self displayResultIcon:result];
+}
+
+- (void)startNewTrack:(NSString*)trackName byArtist:(NSString*)artistName
+{
+	NSLog(@"LASTIFY track started: \"%@\" by %@", trackName, artistName);
+	self.currentTrack = trackName;
+	self.currentArtist = artistName;
 }
 
 - (IBAction)taggingCancel:(id)sender

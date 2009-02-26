@@ -414,30 +414,36 @@
 	return [response autorelease];
 }
 
-- (void)loveTrack:(NSString*)trackName byArtist:(NSString*)artistName
+- (BOOL)loveTrack:(NSString*)trackName byArtist:(NSString*)artistName
 {
 	if(!self.sessionKey)
-		return;
+		return FALSE;
 
 	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
 		trackName, @"track",
 		artistName, @"artist",
 		nil];
 
-	[self callMethod:@"track.love" withParams:callParams usingPost:TRUE error:NULL];
+	NSError *loveError = nil;
+	[self callMethod:@"track.love" withParams:callParams usingPost:TRUE error:&loveError];
+	
+	return !loveError;
 }
 
-- (void)banTrack:(NSString*)trackName byArtist:(NSString*)artistName
+- (BOOL)banTrack:(NSString*)trackName byArtist:(NSString*)artistName
 {
 	if(!self.sessionKey)
-		return;
+		return FALSE;
 
 	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
 		trackName, @"track",
 		artistName, @"artist",
 		nil];
 
-	[self callMethod:@"track.ban" withParams:callParams usingPost:TRUE error:NULL];
+	NSError *banError = nil;
+	[self callMethod:@"track.ban" withParams:callParams usingPost:TRUE error:&banError];
+	
+	return !banError;
 }
 
 - (NSArray*)getTagsForTrack:(NSString*)trackName byArtist:(NSString*)artistName
@@ -468,10 +474,10 @@
 	return (NSArray*)tags;
 }
 
-- (void)addTags:(NSArray*)tags toTrack:(NSString*)trackName byArtist:(NSString*)artistName
+- (BOOL)addTags:(NSArray*)tags toTrack:(NSString*)trackName byArtist:(NSString*)artistName
 {
 	if(!self.sessionKey)
-		return;
+		return FALSE;
 
 	if([tags count] > 10)
 	{
@@ -488,18 +494,22 @@
 		artistName, @"artist",
 		tagString, @"tags",
 		nil];
-		
-	[self callMethod:@"track.addtags" withParams:callParams usingPost:TRUE error:NULL];
+	
+	NSError *tagError = nil;
+	[self callMethod:@"track.addtags" withParams:callParams usingPost:TRUE error:&tagError];
+	
+	return !tagError;
 }
 
-- (void)removeTags:(NSArray*)tags fromTrack:(NSString*)trackName byArtist:(NSString*)artistName
+- (BOOL)removeTags:(NSArray*)tags fromTrack:(NSString*)trackName byArtist:(NSString*)artistName
 {
 	if(!self.sessionKey)
-		return;
+		return FALSE;
 	
 	NSString *tag;
 	NSDictionary *callParams;
 	NSEnumerator *tagEnum = [tags objectEnumerator];
+	BOOL result = TRUE;
 	while(tag = [tagEnum nextObject])
 	{
 		callParams = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -508,8 +518,12 @@
 			tag, @"tag",
 			nil];
 			
-		[self callMethod:@"track.removetag" withParams:callParams usingPost:TRUE error:NULL];
+		NSError *tagError = nil;
+		[self callMethod:@"track.removetag" withParams:callParams usingPost:TRUE error:&tagError];
+		result = result && !tagError;
 	}
+	
+	return result;
 }
 
 @end
