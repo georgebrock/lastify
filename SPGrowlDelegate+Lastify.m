@@ -30,7 +30,7 @@
 	
 	if(info != NULL)
 	{
-		NSString *songTitle = [NSString stringWithFormat:@"%s", info->_field3];
+		NSString *songTitle = [[NSString alloc] initWithCString:info->_field3 encoding:NSUTF8StringEncoding];
 		
 		NSString *dockTitle = [[[[[SPController sharedController] applicationDockMenu:nil] itemArray] objectAtIndex:0] title];
 		
@@ -42,6 +42,8 @@
 		LastifyController *lastify = [LastifyController sharedInstance];
 		lastify.currentTrack = songTitle;
 		lastify.currentArtist = artist;
+		
+		[songTitle release], songTitle = nil;
 	}
 }
 

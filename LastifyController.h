@@ -22,6 +22,8 @@
 	IBOutlet NSButton *tagButton;
 	IBOutlet NSButton *loginButton;
 	
+	IBOutlet NSImageView *statusImage;
+	
 	NSString *currentTrack;
 	NSString *currentArtist;
 	NSArray *currentTags;

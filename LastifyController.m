@@ -69,6 +69,8 @@
 {
 	[NSBundle loadNibNamed:@"LastifyInterface" owner:self];
 	
+	[statusImage setImage:nil];
+	
 	[loveButton setTextColor:[NSColor whiteColor]];
 	[banButton setTextColor:[NSColor whiteColor]];
 	[tagButton setTextColor:[NSColor whiteColor]];
@@ -128,7 +130,9 @@
 	if(!currentTrack || !currentArtist)
 		return;
 
+	[statusImage setImage:[NSImage imageNamed:@"loading"]];
 	[lastfm loveTrack:currentTrack byArtist:currentArtist];
+	[statusImage setImage:nil];
 }
 
 - (IBAction)banTrack:(id)sender
@@ -147,7 +151,7 @@
 }
 
 - (IBAction)taggingOK:(id)sender
-{
+{	
 	NSArray *newTags = [tagField objectValue];
 	NSMutableArray *removeTags = [self.currentTags mutableCopy];
 	NSMutableArray *addTags = [NSMutableArray arrayWithCapacity:[newTags count]];

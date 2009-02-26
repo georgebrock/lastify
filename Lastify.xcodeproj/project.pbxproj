@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		C6158DB20F56D64C006CE651 /* icon_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = C6158DB10F56D64C006CE651 /* icon_loading.gif */; };
+		C6158DB60F56D726006CE651 /* icon_tick.png in Resources */ = {isa = PBXBuildFile; fileRef = C6158DB40F56D726006CE651 /* icon_tick.png */; };
+		C6158DB70F56D726006CE651 /* icon_error.png in Resources */ = {isa = PBXBuildFile; fileRef = C6158DB50F56D726006CE651 /* icon_error.png */; };
 		C6BE8FF10F431AB5004BBEB7 /* icon_tag.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BE8FEE0F431AB5004BBEB7 /* icon_tag.png */; };
 		C6BE8FF20F431AB5004BBEB7 /* icon_ban.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BE8FEF0F431AB5004BBEB7 /* icon_ban.png */; };
 		C6BE8FF30F431AB5004BBEB7 /* icon_love.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BE8FF00F431AB5004BBEB7 /* icon_love.png */; };
@@ -32,6 +35,9 @@
 		32DBCF630370AF2F00C91783 /* Lastify_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lastify_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* Lastify.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lastify.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6158DB10F56D64C006CE651 /* icon_loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = icon_loading.gif; sourceTree = "<group>"; };
+		C6158DB40F56D726006CE651 /* icon_tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_tick.png; sourceTree = "<group>"; };
+		C6158DB50F56D726006CE651 /* icon_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_error.png; sourceTree = "<group>"; };
 		C6BE8FEE0F431AB5004BBEB7 /* icon_tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_tag.png; sourceTree = "<group>"; };
 		C6BE8FEF0F431AB5004BBEB7 /* icon_ban.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_ban.png; sourceTree = "<group>"; };
 		C6BE8FF00F431AB5004BBEB7 /* icon_love.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_love.png; sourceTree = "<group>"; };
@@ -98,7 +104,10 @@
 				C6BE8FEF0F431AB5004BBEB7 /* icon_ban.png */,
 				C6BE8FF00F431AB5004BBEB7 /* icon_love.png */,
 				C6BE906A0F432D3A004BBEB7 /* icon_key.png */,
+				C6158DB10F56D64C006CE651 /* icon_loading.gif */,
 				C6D68BF90F21418D000CB3C6 /* lastfm_black.png */,
+				C6158DB40F56D726006CE651 /* icon_tick.png */,
+				C6158DB50F56D726006CE651 /* icon_error.png */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 				C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */,
@@ -214,6 +223,9 @@
 				C6BE8FF20F431AB5004BBEB7 /* icon_ban.png in Resources */,
 				C6BE8FF30F431AB5004BBEB7 /* icon_love.png in Resources */,
 				C6BE906B0F432D3A004BBEB7 /* icon_key.png in Resources */,
+				C6158DB20F56D64C006CE651 /* icon_loading.gif in Resources */,
+				C6158DB60F56D726006CE651 /* icon_tick.png in Resources */,
+				C6158DB70F56D726006CE651 /* icon_error.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
