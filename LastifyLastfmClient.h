@@ -15,6 +15,7 @@
 	NSString *APISecret;
 	NSString *authToken;
 	NSString *sessionKey;
+	NSString *username;
 	
 	BOOL waitingForUserAuth;
 	BOOL sessionReady;
@@ -24,6 +25,7 @@
 @property(readwrite, copy) NSString *APISecret;
 @property(readwrite, copy) NSString *authToken;
 @property(readwrite, copy) NSString *sessionKey;
+@property(readwrite, copy) NSString *username;
 
 @property(readwrite, assign) BOOL waitingForUserAuth;
 @property(readwrite, assign) BOOL sessionReady;
@@ -40,5 +42,6 @@
 - (NSArray*)getTagsForTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 - (BOOL)addTags:(NSArray*)tags toTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 - (BOOL)removeTags:(NSArray*)tags fromTrack:(NSString*)trackName byArtist:(NSString*)artistName;
+- (NSArray*)getPlaylists;
 
 @end

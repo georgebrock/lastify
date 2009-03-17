@@ -26,7 +26,8 @@
 	authToken,
 	sessionKey,
 	waitingForUserAuth,
-	sessionReady;
+	sessionReady,
+	username;
 	
 - (id)initWithAPIKey:(NSString*)newAPIKey APISecret:(NSString*)newAPISecret
 {
@@ -49,6 +50,7 @@
 	[APISecret release], APISecret = nil;
 	[authToken release], authToken = nil;
 	[sessionKey release], sessionKey = nil;
+	[username release], username = nil;
 	[super dealloc];
 }
 
@@ -135,9 +137,15 @@
 		return;
 	}
 
-	// Extract the session key
+	// Extract the username and the session key
 	NSString *newSessionKey;
+	NSString *newUsername;
 	NSScanner *scanner = [NSScanner scannerWithString:response];
+	
+	[scanner scanUpToString:@"<name>" intoString:NULL];
+	[scanner scanString:@"<name>" intoString:NULL];
+	[scanner scanUpToString:@"</name>" intoString:&newUsername];
+	
 	[scanner scanUpToString:@"<key>" intoString:NULL];
 	[scanner scanString:@"<key>" intoString:NULL];
 	[scanner scanUpToString:@"</key>" intoString:&newSessionKey];
@@ -149,7 +157,7 @@
 	}
 	
 	self.sessionKey = newSessionKey;
-	
+	self.username = newUsername;
 	self.waitingForUserAuth = FALSE;
 	self.sessionReady = TRUE;
 }
@@ -526,45 +534,44 @@
 	return result;
 }
 
+- (NSArray*)getPlaylists
+{
+	if(!self.sessionKey)
+		return nil;
+	
+	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
+								self.username, @"user",
+								nil];
+	
+	NSString *response = [self callMethod:@"user.getPlaylists" withParams:callParams usingPost:FALSE error:NULL];
+	if(!response)
+		return nil;
+	
+	NSMutableArray *playlists = [NSMutableArray arrayWithCapacity:1];
+	
+	NSScanner *scanner = [NSScanner scannerWithString:response];
+	while([scanner scanUpToString:@"<playlist>" intoString:NULL])
+	{
+		NSString *playlistID;
+		[scanner scanUpToString:@"<id>" intoString:NULL];
+		[scanner scanString:@"<id>" intoString:NULL];
+		BOOL foundID = [scanner scanUpToString:@"</id>" intoString:&playlistID];
+		
+		NSString *playlistTitle;
+		[scanner scanUpToString:@"<title>" intoString:NULL];
+		[scanner scanString:@"<title>" intoString:NULL];
+		BOOL foundTitle = [scanner scanUpToString:@"</title>" intoString:&playlistTitle];
+		
+		[scanner scanUpToString:@"</playlist>" intoString:NULL];
+		
+		if(foundID && foundTitle)
+			[playlists addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+				playlistID, @"id",
+				playlistTitle, @"title",
+				nil]];
+	}
+	
+	return (NSArray*)playlists;
+}
+
 @end
-
-
-// AUTHENTICATION FLOW
-
-// API key: aa31898c9c79401a7ddaa6c8f089ccad
-//  secret: 92773b344ec2e14cd6f5780b83c06265
-
-// To authorise:
-	
-	// Get a token
-	// http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=aa31898c9c79401a7ddaa6c8f089ccad
-	// e.g. Token: 6a0953be472918be417de435dd4b72e9
-	
-	// Ask the user to authorise the token
-	// http://www.last.fm/api/auth/?api_key=aa31898c9c79401a7ddaa6c8f089ccad&token=6a0953be472918be417de435dd4b72e9
-	
-// Once we're authorised:
-
-	// Get a session key
-	// http://ws.audioscrobbler.com/2.0/?api_key=aa31898c9c79401a7ddaa6c8f089ccad&method=auth.getSession&token=6a0953be472918be417de435dd4b72e9&api_sig=...
-		// api_sig: sort other query string keys/values alphabetically and do md5(key1val1key2val2...secret)
-
-// Call methods:
-
-	// Love a track
-	// http://ws.audioscrobbler.com/2.0/?
-	//	api_key=aa31898c9c79401a7ddaa6c8f089ccad&
-	//	method=track.love&
-	//	track=<trackname>&
-	//	artist=<artist>&
-	//	api_sig=<api_sig>&
-	//  sk=<session_key>
-	
-	// Ban a track
-	// http://ws.audioscrobbler.com/2.0/?
-	//	api_key=aa31898c9c79401a7ddaa6c8f089ccad&
-	//	method=track.ban&
-	//	track=<trackname>&
-	//	artist=<artist>&
-	//	api_sig=<api_sig>&
-	//  sk=<session_key>
