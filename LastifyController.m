@@ -237,7 +237,14 @@
 
 - (IBAction)playlistOK:(id)sender
 {
-	//TODO: 
+	NSDictionary *selectedPlaylist = [[playlistsController selectedObjects] objectAtIndex:0];
+	if(!selectedPlaylist)
+		return;
+	
+	NSString *playlistID = [selectedPlaylist valueForKey:@"id"];
+	BOOL result = [lastfm addTrack:self.currentTrack byArtist:self.currentArtist toPlaylist:playlistID];
+	
+	[self displayResultIcon:result];
 	
 	[playlistPanel orderOut:nil];
 	[NSApp endSheet:playlistPanel];

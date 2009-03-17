@@ -43,5 +43,6 @@
 - (BOOL)addTags:(NSArray*)tags toTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 - (BOOL)removeTags:(NSArray*)tags fromTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 - (NSArray*)getPlaylists;
+- (BOOL)addTrack:(NSString*)trackName byArtist:(NSString*)artistName toPlaylist:(NSString*)playlistID;
 
 @end

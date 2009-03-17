@@ -574,4 +574,21 @@
 	return (NSArray*)playlists;
 }
 
+- (BOOL)addTrack:(NSString*)trackName byArtist:(NSString*)artistName toPlaylist:(NSString*)playlistID
+{
+	if(!self.sessionKey)
+		return FALSE;
+	
+	NSDictionary *callParams = [NSDictionary dictionaryWithObjectsAndKeys:
+								trackName, @"track",
+								artistName, @"artist",
+								playlistID, @"playlistID",
+								nil];
+	
+	NSError *listError = nil;
+	[self callMethod:@"playlist.addTrack" withParams:callParams usingPost:TRUE error:&listError];
+	
+	return !listError;
+}
+
 @end
