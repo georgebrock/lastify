@@ -75,6 +75,7 @@
 	[banButton setTextColor:[NSColor whiteColor]];
 	[tagButton setTextColor:[NSColor whiteColor]];
 	[loginButton setTextColor:[NSColor whiteColor]];
+	[listButton setTextColor:[NSColor whiteColor]];
 	
 	[drawer setParentWindow:[[SPController sharedController] mainWindow]];
 	NSSize contentSize = NSMakeSize(71, 200);
@@ -226,6 +227,26 @@
 {
 	[tagPanel orderOut:nil];
 	[NSApp endSheet:tagPanel];
+}
+
+- (IBAction)addTrackToPlaylist:(id)sender
+{
+	[playlistsController setContent:[lastfm getPlaylists]];
+	[NSApp beginSheet:playlistPanel modalForWindow:[[SPController sharedController] mainWindow] modalDelegate:self didEndSelector:NULL contextInfo:nil];
+}
+
+- (IBAction)playlistOK:(id)sender
+{
+	//TODO: 
+	
+	[playlistPanel orderOut:nil];
+	[NSApp endSheet:playlistPanel];
+}
+
+- (IBAction)playlistCancel:(id)sender
+{
+	[playlistPanel orderOut:nil];
+	[NSApp endSheet:playlistPanel];
 }
 
 - (BOOL)drawerShouldClose:(NSDrawer *)sender

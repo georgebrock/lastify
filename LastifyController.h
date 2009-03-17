@@ -15,11 +15,14 @@
 	IBOutlet NSDrawer *drawer;
 	IBOutlet NSPanel *tagPanel;
 	IBOutlet NSTokenField *tagField;
+	IBOutlet NSPanel *playlistPanel;
+	IBOutlet NSArrayController *playlistsController;
 	LastifyLastfmClient *lastfm;
 	
 	IBOutlet NSButton *loveButton;
 	IBOutlet NSButton *banButton;
 	IBOutlet NSButton *tagButton;
+	IBOutlet NSButton *listButton;
 	IBOutlet NSButton *loginButton;
 	
 	IBOutlet NSImageView *statusImage;
@@ -47,10 +50,14 @@
 
 - (IBAction)loveTrack:(id)sender;
 - (IBAction)banTrack:(id)sender;
-- (IBAction)tagTrack:(id)sender;
 
+- (IBAction)tagTrack:(id)sender;
 - (IBAction)taggingOK:(id)sender;
 - (IBAction)taggingCancel:(id)sender;
+
+- (IBAction)addTrackToPlaylist:(id)sender;
+- (IBAction)playlistOK:(id)sender;
+- (IBAction)playlistCancel:(id)sender;
 
 - (IBAction)auth:(id)sender;
 
