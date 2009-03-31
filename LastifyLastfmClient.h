@@ -35,7 +35,7 @@
 - (void)authenticate;
 - (void)authenticateQuietly;
 
-- (void)startNewSession:(BOOL)quietly;
+- (void)startNewSession;
 
 - (BOOL)loveTrack:(NSString*)trackName byArtist:(NSString*)artistName;
 - (BOOL)banTrack:(NSString*)trackName byArtist:(NSString*)artistName;

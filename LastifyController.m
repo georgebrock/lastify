@@ -126,7 +126,7 @@
 		defaultButton:@"Continue"
 		alternateButton:@"Cancel"
 		otherButton:nil
-		informativeTextWithFormat:@"If you click OK the Last.fm website will open so you can authorise Lastify"];
+		informativeTextWithFormat:@"If you click 'Continue' the Last.fm website will open so you can authorise Lastify"];
 	
 	if([authAlert runModal] == NSAlertAlternateReturn)
 		return;
@@ -145,7 +145,7 @@
 		if([authCompleteAlert runModal] == NSAlertAlternateReturn)
 			return;
 			
-		[lastfm startNewSession:FALSE];
+		[lastfm startNewSession];
 	}
 }
 
