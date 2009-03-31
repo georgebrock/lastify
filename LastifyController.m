@@ -45,7 +45,7 @@
 	method = class_getInstanceMethod(class, originalSelector);
 	if (method == nil)
 			return NO;
-
+	
 	method->method_name = newSelector;
 	return YES;
 }
