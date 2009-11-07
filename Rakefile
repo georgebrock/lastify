@@ -11,7 +11,7 @@ task :update_spotify_version do
   array_node = REXML::XPath.match(lastify_plist, '//key[text()="SIMBLTargetApplications"]/following-sibling::array[1]')
   max_version_node = REXML::XPath.match(array_node, '//key[text()="MaxBundleVersion"]/following-sibling::string[1]').pop
   max_version_node.text = new_version
-  File.open('Info.plist', 'w') {|f| f.write(doc) }
+  File.open('Info.plist', 'w') {|f| f.write(lastify_plist) }
 
   puts "Version updated to #{new_version}"
 
