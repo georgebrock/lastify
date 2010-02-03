@@ -27,7 +27,7 @@
 			<key>BundleIdentifier</key>
 			<string>com.spotify.client</string>
 			<key>MaxBundleVersion</key>
-			<string>58421</string>
+			<string>63386</string>
 			<key>MinBundleVersion</key>
 			<string>36574</string>
 		</dict>
