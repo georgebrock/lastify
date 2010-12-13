@@ -8,6 +8,7 @@
 
 #import "LastifyLastfmClient.h"
 #import "NSString+Lastify.h"
+#import "LastifyController.h"
 
 
 @interface LastifyLastfmClient (Private)
@@ -157,6 +158,7 @@
 - (void)authenticateQuietly
 {
 	[self loadSessionKey];
+	[[LastifyController sharedInstance] loadUserInterface];
 }
 
 - (void)authenticate

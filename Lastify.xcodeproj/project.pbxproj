@@ -21,7 +21,6 @@
 		C6BE906B0F432D3A004BBEB7 /* icon_key.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BE906A0F432D3A004BBEB7 /* icon_key.png */; };
 		C6D68B570F212558000CB3C6 /* LastifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B560F212558000CB3C6 /* LastifyController.m */; };
 		C6D68B5E0F212820000CB3C6 /* LastifyInterface.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */; };
-		C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */; };
 		C6D68BFA0F21418D000CB3C6 /* lastfm_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D68BF90F21418D000CB3C6 /* lastfm_black.png */; };
 		C6D68C060F214DAA000CB3C6 /* LastifyLastfmClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68C050F214DAA000CB3C6 /* LastifyLastfmClient.m */; };
 		C6D68C9A0F21EF55000CB3C6 /* NSString+Lastify.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D68C990F21EF55000CB3C6 /* NSString+Lastify.m */; };
@@ -52,8 +51,6 @@
 		C6D68B560F212558000CB3C6 /* LastifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastifyController.m; sourceTree = "<group>"; };
 		C6D68B5D0F212820000CB3C6 /* LastifyInterface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LastifyInterface.xib; sourceTree = "<group>"; };
 		C6D68B9A0F213660000CB3C6 /* SPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPController.h; path = "class-dump-headers/SPController.h"; sourceTree = "<group>"; };
-		C6D68B9C0F2136BE000CB3C6 /* SPController+Lastify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SPController+Lastify.h"; sourceTree = "<group>"; };
-		C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SPController+Lastify.m"; sourceTree = "<group>"; };
 		C6D68BF90F21418D000CB3C6 /* lastfm_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lastfm_black.png; sourceTree = "<group>"; };
 		C6D68C040F214DAA000CB3C6 /* LastifyLastfmClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastifyLastfmClient.h; sourceTree = "<group>"; };
 		C6D68C050F214DAA000CB3C6 /* LastifyLastfmClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastifyLastfmClient.m; sourceTree = "<group>"; };
@@ -128,8 +125,6 @@
 				C6D68CF70F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.h */,
 				C6D68CF80F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.m */,
 				C6D68B9A0F213660000CB3C6 /* SPController.h */,
-				C6D68B9C0F2136BE000CB3C6 /* SPController+Lastify.h */,
-				C6D68B9D0F2136BE000CB3C6 /* SPController+Lastify.m */,
 				C6BE90390F4327E4004BBEB7 /* NSButton+Lastify.h */,
 				C6BE903A0F4327E4004BBEB7 /* NSButton+Lastify.m */,
 				C6D68B550F212558000CB3C6 /* LastifyController.h */,
@@ -204,7 +199,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Lastify" */;
 			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 089C166AFE841209C02AAC07 /* Lastify */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -241,7 +243,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6D68B570F212558000CB3C6 /* LastifyController.m in Sources */,
-				C6D68B9E0F2136BE000CB3C6 /* SPController+Lastify.m in Sources */,
 				C6D68C060F214DAA000CB3C6 /* LastifyLastfmClient.m in Sources */,
 				C6D68C9A0F21EF55000CB3C6 /* NSString+Lastify.m in Sources */,
 				C6D68CF90F21FE2C000CB3C6 /* SPGrowlDelegate+Lastify.m in Sources */,

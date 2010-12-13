@@ -9,7 +9,6 @@
 #import <objc/objc-class.h>
 #import "LastifyController.h"
 #import "SPController.h"
-#import "SPController+Lastify.h"
 #import "SPGrowlDelegate+Lastify.h"
 #import "NSButton+Lastify.h"
 
@@ -23,7 +22,6 @@
 
 + (void)load
 {
-	[SPController initLastify];
 	[SPGrowlDelegate initLastify];
 	[[LastifyController sharedInstance] initLastfmConnection];
 }
