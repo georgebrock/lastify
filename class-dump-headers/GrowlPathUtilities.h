@@ -12,8 +12,8 @@
 
 + (id)growlPrefPaneBundle;
 + (id)helperAppBundle;
-+ (id)searchPathForDirectory:(int)fp8 inDomains:(int)fp12 mustBeWritable:(BOOL)fp16;
-+ (id)searchPathForDirectory:(int)fp8 inDomains:(int)fp12;
++ (id)searchPathForDirectory:(int)fp8 inDomains:(unsigned int)fp12 mustBeWritable:(BOOL)fp16;
++ (id)searchPathForDirectory:(int)fp8 inDomains:(unsigned int)fp12;
 + (id)growlSupportDirectory;
 + (id)screenshotsDirectory;
 + (id)ticketsDirectory;

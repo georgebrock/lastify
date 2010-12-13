@@ -14,6 +14,7 @@
     struct _NSPoint initialMouseLocation;
     BOOL isRightClick;
     BOOL acceptsDrag;
+    BOOL _dragging;
 }
 
 - (BOOL)wantsPeriodicDraggingUpdates;
@@ -26,6 +27,7 @@
 - (BOOL)acceptsFirstMouse:(id)fp8;
 - (BOOL)acceptsFirstResponder;
 - (id)initWithFrame:(struct _NSRect)fp8;
+- (void)dealloc;
 - (void)drawRect:(struct _NSRect)fp8;
 - (void)resetCursorRects;
 - (BOOL)performKeyEquivalent:(id)fp8;
@@ -34,6 +36,7 @@
 - (void)mouseExited:(id)fp8;
 - (void)mouseMoved:(id)fp8;
 - (id)view:(id)fp8 stringForToolTip:(int)fp12 point:(struct _NSPoint)fp16 userData:(void *)fp24;
+- (BOOL)isFlipped;
 - (void)mouseDown:(id)fp8;
 - (void)mouseUp:(id)fp8;
 - (void)mouseDragged:(id)fp8;

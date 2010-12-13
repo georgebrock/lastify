@@ -8,15 +8,16 @@
 
 @interface SPTextField : NSTextField
 {
-    struct GuiEditBox *box;
+    struct PlatformEditBox *box;
 }
 
 - (id)initWithFrame:(struct _NSRect)fp8;
 - (BOOL)becomeFirstResponder;
 - (void)textDidChange:(id)fp8;
+- (BOOL)textShouldEndEditing:(id)fp8;
 - (void)textDidEndEditing:(id)fp8;
-- (struct GuiEditBox *)guiEditBox;
-- (void)setGuiEditBox:(struct GuiEditBox *)fp8;
+- (struct PlatformEditBox *)platformEditBox;
+- (void)setPlatformEditBox:(struct PlatformEditBox *)fp8;
 
 @end
 

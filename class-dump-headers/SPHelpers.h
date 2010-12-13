@@ -10,12 +10,10 @@
 {
 }
 
-+ (void)initialize;
 + (const char *)fontFaceForIndex:(int)fp8;
 + (struct CGImage *)CGImageRefFromNSBitmapImageRep:(id)fp8;
 + (id)NSColorFromColor:(const unsigned int *)fp8;
 + (float)fontFaceHeightMultiplier;
-+ (id)dragDataTypes;
 
 @end
 

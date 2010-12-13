@@ -10,5 +10,8 @@
 - (void)_addTrackingArea:(id)fp8;
 - (void)_removeTrackingArea:(id)fp8;
 - (id)_trackingAreas;
+- (void)compat_addTrackingArea:(id)fp8;
+- (void)compat_removeTrackingArea:(id)fp8;
+- (id)compat_trackingAreas;
 @end
 

@@ -6,8 +6,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class SPUndoManager;
+
 @interface SPController : NSObject
 {
+    SPUndoManager *_undo_manager;
 }
 
 + (id)sharedController;
@@ -26,19 +29,26 @@
 - (void)sendFeedback:(id)fp8;
 - (void)resetFeedbackForm;
 - (void)processFeedback;
+- (void)applicationWillFinishLaunching:(id)fp8;
 - (void)applicationDidFinishLaunching:(id)fp8;
+- (void)applicationWillTerminate:(id)fp8;
 - (BOOL)validateMenuItem:(id)fp8;
 - (void)doAction:(id)fp8;
 - (void)copy:(id)fp8;
 - (void)paste:(id)fp8;
 - (void)cut:(id)fp8;
+- (void)undo:(id)fp8;
+- (void)redo:(id)fp8;
 - (void)selectAll:(id)fp8;
+- (void)selectNone:(id)fp8;
 - (void)delete:(id)fp8;
 - (void)mediaKeyEvent:(id)fp8;
 - (void)getURI:(id)fp8 withReplyEvent:(id)fp12;
 - (void)openLink:(id)fp8 userData:(id)fp12 error:(id *)fp16;
 - (BOOL)application:(id)fp8 openFile:(id)fp12;
+- (void)application:(id)fp8 openFiles:(id)fp12;
 - (void)setupWindowAndViews;
+- (id)windowWillReturnUndoManager:(id)fp8;
 - (BOOL)applicationShouldHandleReopen:(id)fp8 hasVisibleWindows:(BOOL)fp12;
 - (void)setSchedulerTimer;
 - (void)setWindowController:(struct WindowControllerOSX *)fp8;
@@ -47,14 +57,13 @@
 - (id)applicationDockMenu:(id)fp8;
 - (void)notificationDelivery:(id)fp8;
 - (id)mainWindow;
-- (id)aboutWindow;
 - (id)feedbackWindow;
-- (id)introWindow;
+- (id)undoManager;
 - (void)pasteboard:(id)fp8 provideDataForType:(id)fp12;
 - (void)pasteboard:(id)fp8 provideDataForType:(id)fp12 flags:(unsigned int)fp16;
+- (void)declareDraggedTypesForPasteboard:(id)fp8;
 - (id)dragPasteboard;
 - (void)setDragPasteboard:(id)fp8;
-- (id)stringDataFromPasteboard:(id)fp8;
 - (BOOL)isShuttingDown;
 - (void)dealloc;
 - (void)prepareForShutdown;

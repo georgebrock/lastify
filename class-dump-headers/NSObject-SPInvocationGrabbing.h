@@ -4,13 +4,11 @@
  *     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2007 by Steve Nygard.
  */
 
-#import "NSView.h"
+#import "NSObject.h"
 
-@interface SPTextManagerView : NSView
-{
-}
-
-- (id)menuForEvent:(id)fp8;
-
+@interface NSObject (SPInvocationGrabbing)
+- (id)grab;
+- (id)invokeAfter:(double)fp8;
+- (id)nextRunloop;
 @end
 

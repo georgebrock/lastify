@@ -6,16 +6,11 @@
 
 #import "NSView.h"
 
-@interface SPAboutView : NSView
+@interface MenuSeparatorLine : NSView
 {
-    struct GuiCanvas *canvas;
 }
 
-- (id)initWithFrame:(struct _NSRect)fp8;
 - (void)drawRect:(struct _NSRect)fp8;
-- (BOOL)acceptsFirstResponder;
-- (void)mouseUp:(id)fp8;
-- (void)dealloc;
 
 @end
 
