@@ -37,7 +37,7 @@
 @property(readwrite, retain) NSString *currentArtist;
 @property(readwrite, retain) NSArray *currentTags;
 
-+ (BOOL)renameSelector:(SEL)originalSelector toSelector:(SEL)newSelector onClass:(Class)class;
++ (BOOL)swapMethod:(SEL)firstSelector withMethod:(SEL)secondSelector onClass:(Class)class;
 + (LastifyController*)sharedInstance;
 
 - (void)initLastfmConnection;

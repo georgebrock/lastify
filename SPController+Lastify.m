@@ -11,20 +11,19 @@
 
 
 @interface SPController (DummyReplacedMethods)
-- (void)_original_setupWindowAndViews;
+- (void)_lastify_setupWindowAndViews;
 @end
 
 @implementation SPController (Lastify)
 
 + (void)initLastify
 {
-	[LastifyController renameSelector:@selector(setupWindowAndViews) toSelector:@selector(_original_setupWindowAndViews) onClass:[self class]];
-	[LastifyController renameSelector:@selector(_new_setupWindowAndViews) toSelector:@selector(setupWindowAndViews) onClass:[self class]];
+	[LastifyController swapMethod:@selector(setupWindowAndViews) withMethod:@selector(_lastify_setupWindowAndViews) onClass:[self class]];
 }
 
-- (void)_new_setupWindowAndViews
+- (void)_lastify_setupWindowAndViews
 {
-	[self _original_setupWindowAndViews];
+	[self _lastify_setupWindowAndViews];
 	[[LastifyController sharedInstance] loadUserInterface];
 }
 

@@ -38,15 +38,16 @@
 	return plugin;
 }
 
-+ (BOOL)renameSelector:(SEL)originalSelector toSelector:(SEL)newSelector onClass:(Class)class
++ (BOOL)swapMethod:(SEL)firstSelector withMethod:(SEL)secondSelector onClass:(Class)class
 {
-	Method method = nil;
+	Method firstMethod, secondMethod;
 
-	method = class_getInstanceMethod(class, originalSelector);
-	if (method == nil)
-			return NO;
+	firstMethod = class_getInstanceMethod(class, firstSelector);
+	secondMethod = class_getInstanceMethod(class, secondSelector);
+	if (firstMethod == nil || secondMethod == nil)
+		return NO;
 	
-	method->method_name = newSelector;
+	method_exchangeImplementations(firstMethod, secondMethod);
 	return YES;
 }
 

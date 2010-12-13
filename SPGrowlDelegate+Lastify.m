@@ -13,20 +13,19 @@
 
 
 @interface SPGrowlDelegate (DummyReplacedMethods)
-- (void)_original_notificationWithTrackInfo:(void*)info;
+- (void)_lastify_notificationWithTrackInfo:(void*)info;
 @end
 
 @implementation SPGrowlDelegate (Lastify)
 
 + (void)initLastify
 {
-	[LastifyController renameSelector:@selector(notificationWithTrackInfo:) toSelector:@selector(_original_notificationWithTrackInfo:) onClass:[self class]];
-	[LastifyController renameSelector:@selector(_new_notificationWithTrackInfo:) toSelector:@selector(notificationWithTrackInfo:) onClass:[self class]];
+	[LastifyController swapMethod:@selector(notificationWithTrackInfo:) withMethod:@selector(_lastify_notificationWithTrackInfo:) onClass:[self class]];
 }
 
-- (void)_new_notificationWithTrackInfo:(struct TrackInfo*)info
+- (void)_lastify_notificationWithTrackInfo:(struct TrackInfo*)info
 {
-	[self _original_notificationWithTrackInfo:info];
+	[self _lastify_notificationWithTrackInfo:info];
 	
 	if(info != NULL)
 	{
