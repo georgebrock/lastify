@@ -88,7 +88,7 @@
     if(SecKeychainSearchCopyNext(search, &item) == noErr) 
 	{
 		UInt32 length;
-		char *password;
+		char *password = NULL;
 		OSStatus status;
 		
 		status = SecKeychainItemCopyContent(item, NULL, NULL, &length, (void **)&password);
@@ -213,8 +213,8 @@
 	}
 
 	// Extract the username and the session key
-	NSString *newSessionKey;
-	NSString *newUsername;
+	NSString *newSessionKey = nil;
+	NSString *newUsername = nil;
 	NSScanner *scanner = [NSScanner scannerWithString:response];
 	
 	[scanner scanUpToString:@"<name>" intoString:NULL];
@@ -251,7 +251,7 @@
 		return nil;
 	}
 	
-	NSString *newAuthToken;
+	NSString *newAuthToken = nil;
 	NSScanner *scanner = [NSScanner scannerWithString:response];
 	[scanner scanUpToString:@"<token>" intoString:NULL];
 	[scanner scanString:@"<token>" intoString:NULL];
@@ -316,8 +316,8 @@
 	
 	// Call the Last.fm API
 	NSHTTPURLResponse *downloadResponse;
-	NSError *downloadError;
-	NSData *downloadData;
+	NSError *downloadError = nil;
+	NSData *downloadData = nil;
 	downloadData = [NSURLConnection sendSynchronousRequest:urlReq returningResponse:&downloadResponse error:&downloadError];
 	
 	// Check for errors in the response
@@ -337,7 +337,7 @@
 			NSString *errorResponse = [[NSString alloc] initWithData:downloadData encoding:NSUTF8StringEncoding];
 
 			NSInteger errNo;
-			NSString *errMsg;
+			NSString *errMsg = nil;
 			NSScanner *errScanner = [NSScanner scannerWithString:errorResponse];
 			[errScanner scanUpToString:@"<error code=\"" intoString:NULL];
 			[errScanner scanString:@"<error code=\"" intoString:NULL];
@@ -415,7 +415,7 @@
 	
 	NSMutableArray *tags = [NSMutableArray arrayWithCapacity:1];
 	
-	NSString *newTag;
+	NSString *newTag = nil;
 	NSScanner *scanner = [NSScanner scannerWithString:response];
 	while([scanner scanUpToString:@"<name>" intoString:NULL])
 	{
@@ -497,12 +497,12 @@
 	NSScanner *scanner = [NSScanner scannerWithString:response];
 	while([scanner scanUpToString:@"<playlist>" intoString:NULL])
 	{
-		NSString *playlistID;
+		NSString *playlistID = nil;
 		[scanner scanUpToString:@"<id>" intoString:NULL];
 		[scanner scanString:@"<id>" intoString:NULL];
 		BOOL foundID = [scanner scanUpToString:@"</id>" intoString:&playlistID];
 		
-		NSString *playlistTitle;
+		NSString *playlistTitle = nil;
 		[scanner scanUpToString:@"<title>" intoString:NULL];
 		[scanner scanString:@"<title>" intoString:NULL];
 		BOOL foundTitle = [scanner scanUpToString:@"</title>" intoString:&playlistTitle];
