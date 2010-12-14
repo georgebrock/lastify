@@ -66,6 +66,9 @@
 
 - (void)loadUserInterface
 {
+	if(drawer != nil || [[SPController sharedController] mainWindow] == nil)
+		return;
+	
 	[NSBundle loadNibNamed:@"LastifyInterface" owner:self];
 	
 	[statusImage setImage:nil];
@@ -218,6 +221,7 @@
 - (void)startNewTrack:(NSString*)trackName byArtist:(NSString*)artistName
 {
 	NSLog(@"LASTIFY track started: \"%@\" by %@", trackName, artistName);
+	[self loadUserInterface];
 	self.currentTrack = trackName;
 	self.currentArtist = artistName;
 }
