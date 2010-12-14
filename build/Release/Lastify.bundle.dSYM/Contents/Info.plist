@@ -5,23 +5,14 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>English</string>
 		<key>CFBundleIdentifier</key>
-		<string>com.apple.xcode.dsym.Lastify.bundle</string>
+		<string>com.apple.xcode.dsym.com.georgebrock.Lastify</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundlePackageType</key>
 		<string>dSYM</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
-		<key>CFBundleShortVersionString</key>
-		<string>1.0</string>
 		<key>CFBundleVersion</key>
-		<string>1</string>
-		<key>dSYM_UUID</key>
-		<dict>
-			<key>ppc</key>
-			<string>1C4E50A3-66E1-3EF1-4AEE-081268AC12B0</string>
-			<key>i386</key>
-			<string>0728911D-665D-F525-78A3-0F665717FA45</string>
-		</dict>
+		<string>1.0</string>
 	</dict>
 </plist>
