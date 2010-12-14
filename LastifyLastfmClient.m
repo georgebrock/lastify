@@ -123,8 +123,6 @@
 
 - (void)storeSessionKey
 {
-	NSLog(@"In storeSessionKey");
-	
 	// Create attributes array
 	SecKeychainAttribute attributes[3];
 	
