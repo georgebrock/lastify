@@ -1,0 +1,82 @@
+header, hgroup, section, aside, footer { display: block; }
+
+body {
+  font-family:            'Arial',
+                          sans-serif;
+  color:                  #333;
+  padding:                10px 50px 10px 200px;
+  min-width:              300px;
+  background:             url(../images/screenshot.png)
+                          no-repeat
+                          0 5px;
+}
+h1, h2 {
+  font-family:            'Georgia',
+                          'Times',
+                          serif;
+}
+li {
+  margin-bottom:          1em;
+}
+hgroup {
+  margin-bottom:          20px;
+}
+hgroup h1 {
+  font-size:              3em;
+  margin:                 0 0.33em 0 0;
+  float:                  left;
+}
+hgroup h1:after {
+  content:                ':';
+}
+hgroup h2 {
+  color:                  #444;
+  margin:                 0;
+}
+header,
+section,
+aside {
+  margin-bottom:          2em;
+}
+header {
+  font-size:              1.2em;
+  border-bottom:          3px double #ccc;
+}
+aside,
+footer {
+  font-size:              0.8em;
+}
+footer {
+  border-top:             3px double #ccc;
+  margin-top:             4em;
+}
+b {
+  font-weight:            normal;
+  background:             #eee;
+  padding:                2px;
+  margin:                 0 -1px;
+  -webkit-border-radius:  2px;
+  -moz-border-radius:     2px;
+  border-radius:          2px;
+}
+a {
+  color:                  #069;
+  text-decoration:        none;
+}
+a:hover,
+a:focus,
+a:active {
+  text-decoration:        underline;
+}
+a.lastfm {
+  color:                  #dd1303;
+}
+a.spotify {
+  color:                  #52ac00;
+}
+span.amp {
+  font-family:            'Baskerville', 'Goudy Old Style', 'Palatino', 'Book Antiqua', serif;
+  font-size:              110%;
+  font-style:             italic;
+  font-weight:            normal;
+}
