@@ -7,8 +7,8 @@ A SIMBL plugin that adds Last.fm Love, Ban and Tagging capabilities to Spotify.
 ### Installation instructions
 
 1. Download and install [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php "Smart Input Manager Bundle Loader")
-2. Download Lastify
-3. Put the Lastify.bundle file (found in the build/Release directory of this project) into your /Users/your-username-here/Library/Application Support/SIMBL/Plugins directory
+2. [Download the latest version of Lastify](https://github.com/georgebrock/lastify/downloads)
+3. Put the Lastify.bundle file into your /Users/your-username-here/Library/Application Support/SIMBL/Plugins directory
 
 ### Features
 
