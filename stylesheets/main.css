@@ -5,7 +5,8 @@ body {
                           sans-serif;
   color:                  #333;
   padding:                10px 50px 10px 200px;
-  min-width:              300px;
+  max-width:              850px;
+  min-width:              520px;
   background:             url(../images/screenshot.png)
                           no-repeat
                           0 5px;
