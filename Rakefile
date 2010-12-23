@@ -35,6 +35,12 @@ task :build do
   system 'xcodebuild'
 end
 
+desc 'Creates a ZIP file of the current build'
+task :package do
+  Dir.chdir 'build/Release'
+  system 'zip', '-r', "lastify-#{Spotify.version}.zip", 'Lastify.bundle'
+end
+
 namespace :spotify do
   desc "Outputs the current Spotify version"
   task :version do
