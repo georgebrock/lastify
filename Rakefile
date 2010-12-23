@@ -36,6 +36,11 @@ task :build do
 end
 
 namespace :spotify do
+  desc "Outputs the current Spotify version"
+  task :version do
+    puts "#{Spotify.version} (#{Spotify.bundle_version})"
+  end
+
   task :restart do
     system 'killall', 'Spotify'
     system 'open', Spotify.path
