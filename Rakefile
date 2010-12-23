@@ -41,6 +41,19 @@ task :package do
   system 'zip', '-r', "lastify-#{Spotify.version}.zip", 'Lastify.bundle'
 end
 
+desc 'Uploads a ZIP file of the current build to Github'
+task :upload do
+  begin
+    require 'net/github-upload'
+  rescue LoadError
+    raise 'Please run `gem install net-github-upload` to continue'
+  end
+
+  login, token = ['github.user', 'github.token'].map{|key| `git config #{key}`.chomp }
+  github = Net::GitHub::Upload.new(:login => login, :token => token)
+  github.upload(:repos => 'lastify', :file => "build/Release/lastify-#{Spotify.version}.zip", :description => "for Spotify #{Spotify.version}")
+end
+
 namespace :spotify do
   desc "Outputs the current Spotify version"
   task :version do
