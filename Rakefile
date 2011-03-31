@@ -30,7 +30,7 @@ task :update do
   puts "\nVersion updated to #{Spotify.version} (#{Spotify.bundle_version})"
 end
 
-desc 'Recompile the plugin and restart Spotify'
+desc 'Recompile the plugin'
 task :build do
   system 'xcodebuild'
 end
@@ -60,6 +60,7 @@ namespace :spotify do
     puts "#{Spotify.version} (#{Spotify.bundle_version})"
   end
 
+  desc 'Restart Spotify'
   task :restart do
     system 'killall', 'Spotify'
     system 'open', Spotify.path
