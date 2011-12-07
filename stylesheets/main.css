@@ -34,7 +34,6 @@ hgroup h2 {
   color:                  #444;
   margin:                 0;
 }
-header,
 section,
 aside {
   margin-bottom:          2em;
@@ -42,6 +41,7 @@ aside {
 header {
   font-size:              1.2em;
   border-bottom:          3px double #ccc;
+  margin-bottom:          1em;
 }
 aside,
 footer {
@@ -50,6 +50,26 @@ footer {
 footer {
   border-top:             3px double #ccc;
   margin-top:             4em;
+}
+section.notice {
+  background:             #eee;
+  padding:                20px;
+  margin:                 0;
+  line-height:            1.3;
+  -webkit-border-radius:  5px;
+  -moz-border-radius:     5px;
+  border-radius:          5px;
+  -webkit-box-shadow:     rgba(0,0,0, 0.3) 1px 1px 4px;
+}
+section.notice h2,
+section.notice p {
+  display:                inline;
+  font-size:              1em;
+  font-family:            'Arial',
+                          sans-serif;
+}
+section.notice h2:after {
+  content:                ':';
 }
 b {
   font-weight:            normal;
